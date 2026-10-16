@@ -1,0 +1,51 @@
+[
+  {
+    "id": "s0",
+    "cer": 0.0,
+    "dur": 3.686,
+    "speed": 1.08,
+    "asr": "Trade bir varlığı fiyat farkından kazanç elde etmek için alıp satmaktır."
+  },
+  {
+    "id": "s1",
+    "cer": 0.0,
+    "dur": 4.059,
+    "speed": 1.04,
+    "asr": "Alıcılar ve satıcılar emir defterinde buluşur. Fiyatı arz ve talep belirler."
+  },
+  {
+    "id": "s2",
+    "cer": 0.038,
+    "dur": 4.057,
+    "speed": 1.0,
+    "asr": "Her emom dört fiyat gösterir, açılış, en yüksek, en düşük ve kapanış."
+  },
+  {
+    "id": "s3",
+    "cer": 0.017,
+    "dur": 4.254,
+    "speed": 1.08,
+    "asr": "Mumar yanyana gelince trend görünür, yükselen dipler, destek ve direnç."
+  },
+  {
+    "id": "s4",
+    "cer": 0.022,
+    "dur": 3.448,
+    "speed": 1.08,
+    "asr": "Her işlem bir planla başlar. Giriş, zarar, durdur ve kar al."
+  },
+  {
+    "id": "s5",
+    "cer": 0.082,
+    "dur": 3.871,
+    "speed": 1.08,
+    "asr": "Altın kural, tek işlemde sermayenin %1'inden fazlasını riske atma."
+  },
+  {
+    "id": "s6",
+    "cer": 0.0,
+    "dur": 2.476,
+    "speed": 1.0,
+    "asr": "Kısacası Trade kuralları olan bir sistemdir."
+  }
+]

@@ -1,0 +1,9 @@
+[
+  {"id": "s0", "text": "Trade, bir varlığı fiyat farkından kazanç elde etmek için alıp satmaktır.", "say": "Treyd, bir varlığı fiyat farkından kazanç elde etmek için alıp satmaktır."},
+  {"id": "s1", "text": "Alıcılar ve satıcılar emir defterinde buluşur; fiyatı arz ve talep belirler."},
+  {"id": "s2", "text": "Her mum dört fiyat gösterir: açılış, en yüksek, en düşük ve kapanış."},
+  {"id": "s3", "text": "Mumlar yan yana gelince trend görünür: yükselen dipler, destek ve direnç."},
+  {"id": "s4", "text": "Her işlem bir planla başlar: giriş, zarar durdur ve kâr al."},
+  {"id": "s5", "text": "Altın kural: tek işlemde sermayenin yüzde birinden fazlasını riske atma."},
+  {"id": "s6", "text": "Kısacası trade, kuralları olan bir sistemdir.", "say": "Kısacası treyd, kuralları olan bir sistemdir."}
+]
