@@ -1,0 +1,115 @@
+{
+ "s0": [
+  {
+   "text": "Bazen aynı tartışmayı tekrar tekrar yaşarsın.",
+   "start": 0.0,
+   "dur": 2.659
+  },
+  {
+   "text": "Konu değişir, sonu hep aynıdır.",
+   "start": 2.999,
+   "dur": 2.094
+  }
+ ],
+ "s1": [
+  {
+   "text": "Biri suçlar, diğeri susar.",
+   "start": 0.0,
+   "dur": 1.791
+  },
+  {
+   "text": "Biri yaklaştıkça, öteki uzaklaşır.",
+   "start": 2.131,
+   "dur": 2.457
+  }
+ ],
+ "s2": [
+  {
+   "text": "Oysa mesele bulaşıklar değildir.",
+   "start": 0.0,
+   "dur": 1.895
+  },
+  {
+   "text": "Altında hep aynı soru vardır:",
+   "start": 2.235,
+   "dur": 1.76
+  },
+  {
+   "text": "Beni duyuyor musun?",
+   "start": 4.335,
+   "dur": 1.064
+  }
+ ],
+ "s3": [
+  {
+   "text": "Bu döngüyü kırmak için,",
+   "start": 0.0,
+   "dur": 1.516
+  },
+  {
+   "text": "birkaç küçük adım yeter.",
+   "start": 1.856,
+   "dur": 1.469
+  }
+ ],
+ "s4": [
+  {
+   "text": "Önce yumuşak başla.",
+   "start": 0.0,
+   "dur": 1.347
+  },
+  {
+   "text": "“Sen hep” yerine, “Ben şöyle hissediyorum” de.",
+   "start": 1.687,
+   "dur": 2.481
+  }
+ ],
+ "s5": [
+  {
+   "text": "Kalbin hızlandığında, dur.",
+   "start": 0.0,
+   "dur": 1.602
+  },
+  {
+   "text": "Yirmi dakika ara ver; ama geri döneceğini söyle.",
+   "start": 1.942,
+   "dur": 2.674
+  }
+ ],
+ "s6": [
+  {
+   "text": "Cevap vermeden önce dinle.",
+   "start": 0.0,
+   "dur": 1.676
+  },
+  {
+   "text": "“Seni doğru mu anladım?” diye sor.",
+   "start": 2.016,
+   "dur": 2.123
+  }
+ ],
+ "s7": [
+  {
+   "text": "Küçük onarımları küçümseme:",
+   "start": 0.0,
+   "dur": 1.314
+  },
+  {
+   "text": "bir gülümseme, bir dokunuş, bir “haklısın”.",
+   "start": 1.654,
+   "dur": 2.479
+  }
+ ],
+ "s8": [
+  {
+   "text": "Çünkü sevgi, hiç tartışmamak değildir.",
+   "start": 0.0,
+   "dur": 2.509
+  },
+  {
+   "text": "Tartıştıktan sonra yeniden birbirini bulabilmektir.",
+   "start": 2.849,
+   "dur": 2.947
+  }
+ ]
+}

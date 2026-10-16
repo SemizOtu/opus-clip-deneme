@@ -1,0 +1,940 @@
+<title>Seni Duyuyorum</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link id="pp-fonts" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Figtree:wght@400;500;600;700;800&family=Caveat:wght@500;700&display=swap">
+<style>
+/* Layout: one warm reading column. Title, the 16:9 stage with its transport, a nine-part emotional chapter strip,
+   then the plan itself (problem, why it happens, four steps, when to get help, scene and sound plan). */
+:root {
+  --bg: #FBF4EC;
+  --surface: #F3E6DA;
+  --fg: #2E1D31;
+  --muted: #6F5A6C;
+  --line: rgba(46, 29, 49, .14);
+  --accent: #C4523F;
+  --accent-2: #2F6F78;
+  --stage: #120C18;
+  --display: Newsreader, "Iowan Old Style", Georgia, serif;
+  --body: Figtree, "Helvetica Neue", Arial, sans-serif;
+  --hand: Caveat, "Segoe Print", cursive;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --bg: #150F1A; --surface: #211829; --fg: #F4E9E1; --muted: #B5A3B3; --line: rgba(244, 233, 225, .13); --accent: #FF9E7A; --accent-2: #9EDCE0; color-scheme: dark; }
+}
+:root[data-theme="dark"] { --bg: #150F1A; --surface: #211829; --fg: #F4E9E1; --muted: #B5A3B3; --line: rgba(244, 233, 225, .13); --accent: #FF9E7A; --accent-2: #9EDCE0; color-scheme: dark; }
+html, body { background: var(--bg); }
+body { color: var(--fg); font-family: var(--body); font-size: 16.5px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+.wrap {
+  max-width: 1160px; margin: 0 auto; display: grid; gap: 34px;
+  padding-block: 44px 80px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.intro { display: grid; gap: 12px; max-width: 760px; }
+.eyebrow { margin: 0; font: 700 12.5px/1.3 var(--body); letter-spacing: .18em; text-transform: uppercase; color: var(--accent); }
+h1 { margin: 0; font: italic 500 clamp(46px, 7.2vw, 84px)/1 var(--display); letter-spacing: -.01em; text-wrap: balance; }
+h1 span { font-family: var(--hand); font-style: normal; font-weight: 700; color: var(--accent); font-size: .62em; margin-left: .2em; }
+.lede { margin: 0; color: var(--muted); font-size: 18px; max-width: 60ch; text-wrap: pretty; }
+
+.player { border-radius: 18px; overflow: hidden; background: var(--stage); box-shadow: 0 0 0 1px var(--line), 0 30px 70px -38px rgba(40, 10, 40, .55); }
+.stage { position: relative; aspect-ratio: 16 / 9; max-width: 100%; background: var(--stage); }
+.stage canvas { display: block; width: 100%; height: 100%; }
+.stage:fullscreen { aspect-ratio: auto; display: grid; place-items: center; }
+.stage:fullscreen canvas { width: min(100vw, 177.78vh); height: auto; aspect-ratio: 16 / 9; }
+.bigplay {
+  position: absolute; left: 50%; bottom: 8%; transform: translateX(-50%);
+  display: inline-flex; align-items: center; gap: 12px; cursor: pointer;
+  padding: 10px 22px 10px 10px; border-radius: 999px; border: 0;
+  background: rgba(251, 244, 236, .92); color: #2E1D31; font: 700 15px/1 var(--body);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, .5);
+}
+.bigplay:hover { background: #FFFFFF; }
+.bigplay .disc { width: 36px; height: 36px; border-radius: 50%; background: #C4523F; display: grid; place-items: center; }
+.bigplay .disc svg { width: 13px; height: 13px; margin-left: 2px; fill: #FFF6EE; }
+.bigplay small { font: 600 13px/1 var(--body); color: #6F5A6C; }
+.bigplay:focus-visible, .ctl:focus-visible, .chap:focus-visible, .line:focus-visible { outline: 2px solid var(--accent-2); outline-offset: 2px; }
+.transport { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: #1B1322; color: #F4E9E1; }
+.ctl { flex: none; width: 38px; height: 38px; border-radius: 50%; border: 1px solid rgba(244, 233, 225, .16); background: transparent; color: inherit; display: grid; place-items: center; cursor: pointer; }
+.ctl:hover { border-color: #FF9E7A; }
+.ctl svg { width: 15px; height: 15px; fill: currentColor; }
+.time { flex: none; font: 600 13px/1 var(--body); font-variant-numeric: tabular-nums; color: rgba(244, 233, 225, .65); min-width: 11ch; text-align: center; }
+.scrub { position: relative; flex: 1; min-width: 0; height: 38px; display: flex; align-items: center; }
+.scrub input { width: 100%; margin: 0; appearance: none; -webkit-appearance: none; background: transparent; height: 38px; cursor: pointer; position: relative; z-index: 2; }
+.scrub input::-webkit-slider-runnable-track { height: 4px; border-radius: 2px; background: linear-gradient(90deg, #FF9E7A var(--p, 0%), rgba(244, 233, 225, .16) var(--p, 0%)); }
+.scrub input::-moz-range-track { height: 4px; border-radius: 2px; background: linear-gradient(90deg, #FF9E7A var(--p, 0%), rgba(244, 233, 225, .16) var(--p, 0%)); }
+.scrub input::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; margin-top: -5px; border-radius: 50%; background: #FBF4EC; border: 0; }
+.scrub input::-moz-range-thumb { width: 14px; height: 14px; border-radius: 50%; background: #FBF4EC; border: 0; }
+.marks { position: absolute; inset: 0; pointer-events: none; z-index: 3; }
+.marks i { position: absolute; top: 50%; width: 2px; height: 10px; margin: -5px 0 0 -1px; background: #1B1322; }
+
+.chapters { display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); gap: 6px; }
+.chap { appearance: none; font: inherit; color: var(--fg); text-align: left; cursor: pointer; display: grid; gap: 6px; align-content: start; padding: 0 0 10px; border: 0; background: transparent; }
+.chap .bar { height: 6px; border-radius: 3px; }
+.chap .n { font: 600 12px/1.2 var(--body); color: var(--muted); font-variant-numeric: tabular-nums; }
+.chap .t { font: italic 500 17px/1.2 var(--display); }
+.chap[aria-current="true"] .t { color: var(--accent); }
+.chap[aria-current="true"] .bar { box-shadow: 0 0 0 2px var(--bg), 0 0 0 3px var(--accent); }
+
+.plan { display: grid; gap: 26px; }
+.plan h2 { margin: 0; font: italic 500 38px/1.1 var(--display); }
+.grid2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 22px; align-items: start; }
+.card { background: var(--surface); border-radius: 16px; padding: 22px 24px; display: grid; gap: 10px; align-content: start; }
+.card h3 { margin: 0; font: 700 13px/1.3 var(--body); letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+.card p { margin: 0; max-width: 62ch; }
+.card .big { font: italic 500 26px/1.3 var(--display); }
+.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.steps li { border-top: 3px solid var(--accent); padding-top: 14px; display: grid; gap: 8px; align-content: start; }
+.steps .k { font: 700 12px/1 var(--body); letter-spacing: .14em; color: var(--muted); }
+.steps h4 { margin: 0; font: italic 500 25px/1.15 var(--display); }
+.steps .say { font: 700 22px/1.25 var(--hand); color: var(--accent-2); }
+.steps p { margin: 0; font-size: 15.5px; }
+.help { border: 1.5px solid var(--accent); }
+.emo { width: 100%; min-width: 680px; border-collapse: collapse; font-size: 14.5px; }
+.emo-wrap { overflow-x: auto; }
+.emo th, .emo td { text-align: left; padding: 10px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.emo th { font: 700 12px/1.3 var(--body); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.emo td:first-child { white-space: nowrap; font-variant-numeric: tabular-nums; color: var(--muted); }
+.emo .sw { display: inline-block; width: 26px; height: 12px; border-radius: 6px; vertical-align: middle; margin-right: 8px; }
+.script ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.line { appearance: none; width: 100%; font: inherit; color: var(--fg); text-align: left; cursor: pointer; display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 12px; padding: 9px 10px; border: 0; border-radius: 10px; background: transparent; }
+.line:hover, .line.on { background: var(--surface); }
+.line time { font: 600 13px/1.7 var(--body); color: var(--muted); font-variant-numeric: tabular-nums; }
+.line.on time { color: var(--accent); }
+.notes { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line); padding-top: 18px; max-width: 860px; }
+.notes p { margin: 0 0 6px; }
+
+@media (max-width: 980px) { .chapters { grid-template-columns: repeat(5, minmax(0, 1fr)); } .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) {
+  .grid2 { grid-template-columns: minmax(0, 1fr); }
+  .chapters { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .steps { grid-template-columns: minmax(0, 1fr); }
+  .transport { gap: 6px; padding: 8px 10px; }
+  .ctl { width: 34px; height: 34px; }
+  .time { min-width: 0; font-size: 12px; }
+  #fsBtn { display: none; }
+  .bigplay { bottom: 6%; padding: 7px 14px 7px 7px; font-size: 13px; }
+  .bigplay .disc { width: 28px; height: 28px; }
+  .bigplay small { display: none; }
+}
+</style>
+
+<main class="wrap">
+  <header class="intro">
+    <p class="eyebrow">İlişkiler · tek sorun, dört adım · <span id="durLabel">50 sn</span></p>
+    <h1>Seni duyuyorum <span>— bir tartışma döngüsünü kırmak</span></h1>
+    <p class="lede">Çiftlerin en sık takıldığı kalıplardan biri: biri suçlar, öteki susar ve aynı kavga tekrar eder. Bu animasyon döngüyü, altındaki asıl soruyu ve döngüyü kırmanın dört küçük adımını anlatıyor. Renkler ve müzik, anlatılan duyguyla birlikte değişiyor.</p>
+  </header>
+
+  <section class="player" aria-label="Animasyon oynatıcı">
+    <div class="stage" id="stage">
+      <canvas id="cv" width="1920" height="1080" role="img" aria-label="Seni duyuyorum animasyonu"></canvas>
+      <button class="bigplay" id="bigPlay" type="button">
+        <span class="disc"><svg viewBox="0 0 10 12" aria-hidden="true"><path d="M0 0L10 6L0 12Z"/></svg></span>
+        <span id="bigLabel">Sesli izle</span>
+        <small id="bigDur">0:50</small>
+      </button>
+    </div>
+    <div class="transport">
+      <button class="ctl" id="playBtn" type="button" aria-label="Oynat">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path id="playIcon" d="M4 2L14 8L4 14Z"/></svg>
+      </button>
+      <span class="time" id="timeLabel">0:00.0</span>
+      <div class="scrub">
+        <input type="range" id="seek" min="0" max="1000" value="0" step="1" aria-label="Zaman çizelgesi">
+        <div class="marks" id="marks"></div>
+      </div>
+      <button class="ctl" id="muteBtn" type="button" aria-label="Sesi kapat" aria-pressed="false">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path id="muteIcon" d="M2 6h3l4-3v10L5 10H2z M11 5.5a3.5 3.5 0 0 1 0 5M12.6 3.6a6 6 0 0 1 0 8.8"/></svg>
+      </button>
+      <button class="ctl" id="fsBtn" type="button" aria-label="Tam ekran">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1 1h5v2H3v3H1zM10 1h5v5h-2V3h-3zM1 10h2v3h3v2H1zM13 10h2v5h-5v-2h3z"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <nav class="chapters" id="chapters" aria-label="Sahneler ve duyguları"></nav>
+
+  <section class="plan" aria-labelledby="planTitle">
+    <h2 id="planTitle">Plan: sorun, neden, çözüm</h2>
+    <div class="grid2">
+      <div class="card">
+        <h3>Sorun</h3>
+        <p class="big">Aynı tartışma tekrar tekrar yaşanıyor: biri suçluyor, diğeri susuyor.</p>
+        <p>Psikolojide “kovala ve geri çekil” döngüsü diye anılır. Biri yaklaştıkça (eleştiri, ısrar, ses yükseltme), öteki daha çok uzaklaşır (savunma, susma, odayı terk etme). Her tur bir sonrakini besler; konu bulaşık, para ya da telefon olabilir, sonuç hep aynıdır.</p>
+      </div>
+      <div class="card">
+        <h3>Neden olur</h3>
+        <p class="big">Tartışmanın altında çoğu zaman tek bir soru vardır: “Beni duyuyor musun?”</p>
+        <p>Suçlayan taraf görülmek ve önemsenmek ister; susan taraf ise kavgayı büyütmemek ya da kendini korumak için geri çekilir. Kalp hızı yükseldiğinde beden “savaş ya da kaç” moduna geçer ve dinlemek zorlaşır. İkisi de kötü niyetli değildir; ikisi de aynı döngüye sıkışmıştır.</p>
+      </div>
+    </div>
+    <ol class="steps">
+      <li><span class="k">ADIM 1</span><h4>Yumuşak başla</h4><span class="say">“Ben şöyle hissediyorum…”</span><p>Konuyu suçlamayla değil, kendi duygun ve ihtiyacınla aç. “Sen hep geç kalıyorsun” yerine “Bekleyince kendimi önemsiz hissediyorum, haber vermeni isterim.”</p></li>
+      <li><span class="k">ADIM 2</span><h4>Mola ver</h4><span class="say">“Geri döneceğim.”</span><p>Kalbin hızlandığında, sesler yükseldiğinde dur. En az 20 dakika ara ver, bu sürede kavgayı kafanda sürdürmek yerine sakinleş. Ne zaman döneceğinizi söyleyin; mola terk etmek değildir.</p></li>
+      <li><span class="k">ADIM 3</span><h4>Dinle ve yansıt</h4><span class="say">“Seni doğru mu anladım?”</span><p>Cevabını hazırlamadan önce dinle. Duyduğunu kendi cümlelerinle geri söyle ve doğrulat. Anlaşıldığını hisseden kişi savunmayı bırakır.</p></li>
+      <li><span class="k">ADIM 4</span><h4>Küçük onarımlar</h4><span class="say">“Haklısın, bu konuda.”</span><p>Gerilimi düşüren küçük hareketler: bir gülümseme, bir dokunuş, bir “haklısın”, bir özür. Araştırmalar, ilişkisini sürdüren çiftlerin tartışırken bile her olumsuz etkileşime karşı yaklaşık beş olumlu an yaşadığını gösteriyor.</p></li>
+    </ol>
+    <div class="grid2">
+      <div class="card help">
+        <h3>Ne zaman destek almalı</h3>
+        <p>Şiddet, tehdit ya da korku varsa bu bir iletişim sorunu değildir; buradaki adımlar o durum için değildir. Güvenliğin önce gelir. Türkiye'de <b>ALO 183</b> sosyal destek hattını, acil durumda <b>112</b>'yi arayabilirsin. Döngü haftalarca sürüyorsa bir çift terapistinden destek almak da güçlü bir adımdır.</p>
+      </div>
+      <div class="card script">
+        <h3>Seslendirme</h3>
+        <ol id="transcript"></ol>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Sahne ve duygu planı</h3>
+      <div class="emo-wrap">
+        <table class="emo">
+          <thead><tr><th>Zaman</th><th>Sahne</th><th>Görsel</th><th>Ses ve müzik</th></tr></thead>
+          <tbody id="emoRows"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <footer class="notes">
+    <p>Bu animasyon genel bilgilendirme amaçlıdır ve terapinin yerini tutmaz. Çözüm adımları, John ve Julie Gottman'ın çift araştırmalarından (yumuşak başlangıç, mola, onarım girişimleri) ve duygu odaklı çift terapisindeki “kovala ve geri çekil” döngüsü fikrinden derlenmiştir.</p>
+    <p>Seslendirme açık kaynak Piper “Fahrettin” sesiyle, cümleler arasında nefes payı bırakılarak üretildi; her cümle için birkaç kayıt alınıp Whisper ile en anlaşılır olanı seçildi. Müzik ve ortam sesleri kodla sentezlendi.</p>
+  </footer>
+</main>
+
+<script id="pp-engine">
+(() => {
+"use strict";
+const TL = /*@TIMELINE@*/null;
+const AUDIO_B64 = /*@AUDIO@*/"";
+const CAPTURE = !!window.__PP_CAPTURE;
+
+const W = 1920, H = 1080, TAU = Math.PI * 2;
+const cv = document.getElementById("cv");
+const ctx = cv.getContext("2d");
+const SC = {}; TL.scenes.forEach(s => { SC[s.id] = s; });
+const IDS = TL.scenes.map(s => s.id);
+const CU = TL.cues;
+const DUR = TL.duration;
+
+/* ---------- math ---------- */
+const clamp = (v, a = 0, b = 1) => v < a ? a : v > b ? b : v;
+const lerp = (a, b, t) => a + (b - a) * t;
+const P = (t, a, b) => clamp((t - a) / (b - a));
+const E = {
+  o2: x => 1 - (1 - x) * (1 - x),
+  o3: x => 1 - Math.pow(1 - x, 3),
+  o5: x => 1 - Math.pow(1 - x, 5),
+  i2: x => x * x,
+  i3: x => x * x * x,
+  io2: x => x < .5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2,
+  io3: x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2,
+  oBack: x => { const c1 = 1.7, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); },
+  spring: x => x >= 1 ? 1 : 1 - Math.exp(-6 * x) * Math.cos(11 * x),
+};
+const pulse = (t, t0, d) => { const q = P(t, t0, t0 + d); return q > 0 && q < 1 ? Math.sin(Math.PI * q) : 0; };
+function rng(seed) {
+  return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+}
+
+/* ---------- colour ---------- */
+const hex = h => [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16)];
+const RGB = {};
+const rgbOf = h => RGB[h] || (RGB[h] = hex(h));
+const rgba = (h, a) => { const c = Array.isArray(h) ? h : rgbOf(h); return `rgba(${c[0] | 0},${c[1] | 0},${c[2] | 0},${a})`; };
+const mixc = (a, b, t) => [lerp(a[0], b[0], t), lerp(a[1], b[1], t), lerp(a[2], b[2], t)];
+const mix = (h1, h2, t, a = 1) => rgba(mixc(rgbOf(h1), rgbOf(h2), t), a);
+const C = { cream: "#FBF1E6", plum: "#2E1D31", coral: "#FF9E7A", coralDeep: "#E5674F", teal: "#9EDCE0", tealDeep: "#3F8F98", gold: "#FFD49A", red: "#FF5A4E", ink: "#160E1A" };
+const F = {
+  disp: (s, w = 500, it = true) => `${it ? "italic " : ""}${w} ${s}px Newsreader, "Iowan Old Style", Georgia, serif`,
+  sans: (s, w = 600) => `${w} ${s}px Figtree, "Helvetica Neue", Arial, sans-serif`,
+  hand: (s, w = 700) => `${w} ${s}px Caveat, "Segoe Print", cursive`,
+};
+const HAS_FILTER = "filter" in ctx;
+const MC = new Map();
+function tw(font, text) { const k = font + "|" + text; let v = MC.get(k); if (v === undefined) { ctx.font = font; v = ctx.measureText(text).width; MC.set(k, v); } return v; }
+function trackW(text, font, tr) { let w = 0; const ch = [...text]; ch.forEach(c => { w += tw(font, c); }); return w + tr * (ch.length - 1); }
+function tracked(text, x, y, font, tr, align = "left") {
+  ctx.font = font; ctx.textAlign = "left";
+  const total = trackW(text, font, tr);
+  let cx = align === "center" ? x - total / 2 : align === "right" ? x - total : x;
+  for (const c of text) { ctx.fillText(c, cx, y); cx += tw(font, c) + tr; }
+  return total;
+}
+function rrect(g, x, y, w, h, r) { g.beginPath(); g.moveTo(x + r, y); g.arcTo(x + w, y, x + w, y + h, r); g.arcTo(x + w, y + h, x, y + h, r); g.arcTo(x, y + h, x, y, r); g.arcTo(x, y, x + w, y, r); g.closePath(); }
+function setBlur(px) { if (HAS_FILTER) ctx.filter = px > .25 ? `blur(${px.toFixed(1)}px)` : "none"; }
+function makeCanvas(w, h) { const c = document.createElement("canvas"); c.width = w; c.height = h; return c; }
+function sprite(h, size = 64) {
+  const c = makeCanvas(size, size), g = c.getContext("2d"), gr = g.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
+  gr.addColorStop(0, rgba(h, 1)); gr.addColorStop(.2, rgba(h, .7)); gr.addColorStop(.5, rgba(h, .18)); gr.addColorStop(1, rgba(h, 0));
+  g.fillStyle = gr; g.fillRect(0, 0, size, size); return c;
+}
+const SPR = { warm: sprite("#FFE2C4", 128), coral: sprite(C.coral), teal: sprite(C.teal), gold: sprite(C.gold), red: sprite(C.red), white: sprite("#FFFFFF", 128), blue: sprite("#9ED2FF") };
+function glow(spr, x, y, r, a) { if (a <= 0) return; ctx.globalAlpha = Math.min(1, a); ctx.drawImage(spr, x - r, y - r, r * 2, r * 2); ctx.globalAlpha = 1; }
+function addGlow(spr, x, y, r, a) { ctx.save(); ctx.globalCompositeOperation = "lighter"; glow(spr, x, y, r, a); ctx.restore(); }
+
+/* ---------- emotional sky ---------- */
+const SKYDEF = {
+  s0: ["#2A2146", "#8E5677", "#F0A385", "#FFD3A6", .80, .55, 0, "#FFD9B8"],
+  s1: ["#0D070F", "#2E1020", "#561A27", "#FF4D4D", .92, .16, 0, "#FF7A6B"],
+  s2: ["#050D1B", "#0A1C36", "#103052", "#7FC4FF", .05, .2, 0, "#9ED2FF"],
+  s3: ["#0C1330", "#2B3570", "#7E6CA3", "#FFC89A", .74, .5, 0, "#FFD9C2"],
+  s4: ["#26366A", "#8C7BB0", "#F2B9A0", "#FFD8B0", .78, .55, .1, "#FFE3CC"],
+  s5: ["#304377", "#9A87B6", "#F4C0A2", "#FFDFB8", .76, .6, .18, "#FFE9D6"],
+  s6: ["#4E69A0", "#BC9DBE", "#F7CAA6", "#FFE7C2", .74, .66, .3, "#FFF0DF"],
+  s7: ["#7C99C8", "#DDB2BD", "#F9D1A8", "#FFEFCF", .7, .72, .45, "#FFF5E8"],
+  s8: ["#F1D5BC", "#F0AE93", "#E58779", "#FFF4DC", .6, .9, .8, "#FFF7EC"],
+  end: ["#FBF2E7", "#F8E6D7", "#F2D3C3", "#FFFFFF", .5, .5, 1, "#FFFFFF"],
+};
+const SKY = {}; for (const k in SKYDEF) { const d = SKYDEF[k]; SKY[k] = { top: hex(d[0]), mid: hex(d[1]), bot: hex(d[2]), glow: hex(d[3]), gy: d[4], ga: d[5], light: d[6], bok: hex(d[7]) }; }
+function blendSky(a, b, q) { return { top: mixc(a.top, b.top, q), mid: mixc(a.mid, b.mid, q), bot: mixc(a.bot, b.bot, q), glow: mixc(a.glow, b.glow, q), gy: lerp(a.gy, b.gy, q), ga: lerp(a.ga, b.ga, q), light: lerp(a.light, b.light, q), bok: mixc(a.bok, b.bok, q) }; }
+function skyAt(t) {
+  let i = 0; for (let k = 0; k < IDS.length; k++) if (t >= SC[IDS[k]].start - .7) i = k;
+  let s = SKY[IDS[i]];
+  if (i > 0) s = blendSky(SKY[IDS[i - 1]], s, E.io2(P(t, SC[IDS[i]].start - .7, SC[IDS[i]].start + .9)));
+  const e = E.io2(P(t, CU.s8.card, CU.s8.card + 1.1)); if (e > 0) s = blendSky(s, SKY.end, e);
+  return s;
+}
+const BOKEH = (() => { const r = rng(4); return Array.from({ length: 34 }, () => ({ x: r() * W, y: r() * H, r: 12 + r() * 60, v: 4 + r() * 12, ph: r() * TAU, a: .05 + r() * .12 })); })();
+function drawSky(t, s) {
+  const g = ctx.createLinearGradient(0, 0, 0, H);
+  g.addColorStop(0, rgba(s.top, 1)); g.addColorStop(.55, rgba(s.mid, 1)); g.addColorStop(1, rgba(s.bot, 1));
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+  const gr = ctx.createRadialGradient(960, s.gy * H, 20, 960, s.gy * H, 1000);
+  gr.addColorStop(0, rgba(s.glow, s.ga)); gr.addColorStop(.35, rgba(s.glow, s.ga * .35)); gr.addColorStop(1, rgba(s.glow, 0));
+  ctx.fillStyle = gr; ctx.fillRect(0, 0, W, H);
+  ctx.save(); ctx.globalCompositeOperation = "lighter";
+  for (const b of BOKEH) {
+    const y = ((b.y - t * b.v) % (H + 200) + H + 200) % (H + 200) - 100, x = b.x + Math.sin(t * .3 + b.ph) * 30;
+    const sp = SPR.warm; ctx.globalAlpha = b.a * (.6 + .4 * Math.sin(t * .8 + b.ph)) * (1 - s.light * .5);
+    ctx.filter = "none"; ctx.drawImage(sp, x - b.r, y - b.r, b.r * 2, b.r * 2);
+  }
+  ctx.restore();
+}
+
+/* ---------- the two people ---------- */
+const PROF = new Path2D("M -110 190 C -170 120 -175 -60 -110 -140 C -60 -205 60 -205 105 -140 C 125 -110 140 -70 140 -40 C 142 -25 150 0 170 30 C 182 46 176 56 152 60 C 158 70 162 80 153 88 C 160 96 160 106 148 112 C 140 118 140 128 146 140 C 150 160 130 178 100 180 C 92 200 92 230 98 250 C 120 290 220 320 270 350 L 270 560 L -300 560 L -300 360 C -250 320 -150 300 -125 270 C -115 250 -110 220 -110 190 Z");
+const MOUTH = [154, 96], EAR = [-15, 10];
+function person(p, t) {
+  if (p.a <= 0) return;
+  const breath = 1 + .006 * Math.sin(t * 1.7 + p.ph);
+  ctx.save(); ctx.globalAlpha = p.a;
+  ctx.translate(p.x, p.y); ctx.rotate(p.lean * Math.sign(p.face || 1)); ctx.scale(p.s * p.face, p.s * breath);
+  ctx.save(); ctx.shadowColor = rgba(p.rim, .9); ctx.shadowBlur = 26; ctx.translate(6, -3); ctx.fillStyle = rgba(p.rim, .95); ctx.fill(PROF); ctx.restore();
+  const g = ctx.createLinearGradient(0, -200, 0, 560); g.addColorStop(0, p.body[0]); g.addColorStop(1, p.body[1]);
+  ctx.fillStyle = g; ctx.fill(PROF);
+  ctx.restore();
+}
+const mouthOf = p => [p.x + p.s * p.face * MOUTH[0], p.y + p.s * MOUTH[1]];
+const earOf = p => [p.x + p.s * p.face * EAR[0], p.y + p.s * EAR[1]];
+const SEN = { body: ["#3A2238", "#1B0F1E"], rim: C.coral, ph: 0 }, O = { body: ["#22304A", "#0F1626"], rim: C.teal, ph: 2 };
+function P2(base, x, y, face, a = 1, lean = 0, s = .95) { return { ...base, x, y, face, a, lean, s }; }
+
+/* ---------- speech, bubbles, icons ---------- */
+function jagged(a, b, t, col, amp, alpha, seed = 1) {
+  const n = 26, dx = b[0] - a[0], dy = b[1] - a[1], L = Math.hypot(dx, dy), nx = -dy / L, ny = dx / L, r = rng(seed);
+  for (let k = 0; k < 3; k++) {
+    const head = ((t * 1.6 + k / 3) % 1), tail = head - .35;
+    ctx.beginPath(); let first = true;
+    for (let i = 0; i <= n; i++) {
+      const u = i / n; if (u < tail || u > head) { r(); continue; }
+      const o = (i % 2 ? 1 : -1) * amp * (.5 + r() * .7) * Math.sin(Math.PI * u);
+      const x = a[0] + dx * u + nx * o, y = a[1] + dy * u + ny * o;
+      first ? ctx.moveTo(x, y) : ctx.lineTo(x, y); first = false;
+    }
+    ctx.strokeStyle = rgba(col, alpha * (1 - k * .2)); ctx.lineWidth = 3.2; ctx.lineJoin = "miter"; ctx.stroke();
+  }
+}
+function smooth(a, b, t, col, amp, alpha, freq = 5, dir = 1) {
+  const n = 80, dx = b[0] - a[0], dy = b[1] - a[1], L = Math.hypot(dx, dy), nx = -dy / L, ny = dx / L;
+  for (let k = 0; k < 3; k++) {
+    ctx.beginPath();
+    for (let i = 0; i <= n; i++) {
+      const u = i / n, o = Math.sin(u * TAU * freq - t * 5 * dir - k * 1.3) * amp * Math.sin(Math.PI * u) * (1 - k * .25);
+      const x = a[0] + dx * u + nx * o, y = a[1] + dy * u + ny * o; i ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+    }
+    ctx.strokeStyle = rgba(col, alpha * (1 - k * .3)); ctx.lineWidth = 3 - k * .7; ctx.stroke();
+  }
+}
+function bubble(cx, cy, text, font, col, p, tail, reveal = 1, bg = "#FFF8F0") {
+  if (p <= 0) return;
+  ctx.font = font; const tw_ = tw(font, text), w = tw_ + 64, h = 92;
+  ctx.save(); ctx.translate(cx, cy); ctx.scale(p, p);
+  ctx.shadowColor = "rgba(30,10,30,.28)"; ctx.shadowBlur = 24; ctx.shadowOffsetY = 8;
+  rrect(ctx, -w / 2, -h / 2, w, h, 40); ctx.fillStyle = bg; ctx.fill();
+  const rx = tail[0] - cx, ry = tail[1] - cy, bx = clamp(rx * .4, -w / 2 + 44, w / 2 - 44), by = ry > 0 ? h / 2 - 4 : -h / 2 + 4;
+  const dx = rx - bx, dy = ry - by, dl = Math.hypot(dx, dy) || 1, tx = bx + dx / dl * 34, ty = by + dy / dl * 34;
+  ctx.beginPath(); ctx.moveTo(bx - 15, by); ctx.lineTo(tx, ty); ctx.lineTo(bx + 15, by); ctx.fill();
+  ctx.shadowColor = "transparent";
+  ctx.save(); ctx.beginPath(); ctx.rect(-w / 2, -h / 2, 32 + tw_ * reveal, h); ctx.clip();
+  ctx.fillStyle = col; ctx.textAlign = "left"; ctx.fillText(text, -w / 2 + 32, 15); ctx.restore();
+  ctx.restore();
+  return w;
+}
+function heartPath(cx, cy, s, frac = 1, side = 0) {
+  ctx.beginPath(); const n = 90; let first = true;
+  for (let i = 0; i <= n; i++) {
+    const u = i / n; if (u > frac) break;
+    const th = side === 0 ? lerp(0, TAU, u) : side < 0 ? lerp(Math.PI, 0, u) * -1 + 0 : lerp(Math.PI, TAU, u);
+    const x = 16 * Math.pow(Math.sin(th), 3), y = -(13 * Math.cos(th) - 5 * Math.cos(2 * th) - 2 * Math.cos(3 * th) - Math.cos(4 * th));
+    first ? ctx.moveTo(cx + x * s, cy + y * s) : ctx.lineTo(cx + x * s, cy + y * s); first = false;
+  }
+}
+
+/* ---------- scene helpers ---------- */
+function rewind(t) {
+  let a = 0; CU.s0.rew.forEach(r => { a = Math.max(a, pulse(t, r, .42)); });
+  return a;
+}
+function sTitle(t) {
+  const [a, b] = CU.title, out = 1 - E.io2(P(t, b - .45, b + .15)); if (out <= 0) return;
+  const f = F.disp(132, 500), text = "Seni duyuyorum.";
+  ctx.save(); ctx.globalAlpha = out; ctx.textAlign = "left";
+  let x = 960 - tw(f, text) / 2;
+  [...text].forEach((ch, i) => {
+    const p = E.o5(P(t, .25 + i * .045, 1.15 + i * .045)); if (p > 0) { ctx.font = f; ctx.globalAlpha = out * p; setBlur((1 - p) * 9); ctx.fillStyle = C.cream; ctx.fillText(ch, x, 520 + (1 - p) * 30); }
+    x += tw(f, ch);
+  });
+  setBlur(0); ctx.globalAlpha = out * E.o3(P(t, .9, 1.5)); ctx.fillStyle = rgba(C.cream, .75);
+  tracked("BİR İLİŞKİ SORUNU  ·  DÖRT KÜÇÜK ADIM", 960, 590, F.sans(19, 700), 5, "center");
+  ctx.restore();
+}
+
+/* scene 0 · a familiar moment */
+const ICONS = ["plate", "clock", "phone"];
+function topicIcon(kind, x, y, s, col) {
+  ctx.save(); ctx.translate(x, y); ctx.scale(s, s); ctx.strokeStyle = col; ctx.lineWidth = 4; ctx.lineCap = "round"; ctx.beginPath();
+  if (kind === "plate") { ctx.arc(0, 0, 22, 0, TAU); ctx.moveTo(12, 0); ctx.arc(0, 0, 12, 0, TAU); ctx.moveTo(-34, -20); ctx.lineTo(-34, 22); ctx.moveTo(34, -20); ctx.lineTo(34, 22); }
+  else if (kind === "clock") { ctx.arc(0, 0, 24, 0, TAU); ctx.moveTo(0, 0); ctx.lineTo(0, -14); ctx.moveTo(0, 0); ctx.lineTo(11, 6); }
+  else { rrect(ctx, -15, -26, 30, 52, 6); ctx.moveTo(-5, 18); ctx.lineTo(5, 18); }
+  ctx.stroke(); ctx.restore();
+}
+function sTanidik(t) {
+  const c = CU.s0, ap = E.o3(P(t, c.chars, c.chars + 1.1));
+  if (ap <= 0) return;
+  const turn = E.io3(P(t, c.turn, c.turn + .7));
+  const rw = rewind(t), jit = rw * Math.sin(t * 120) * 10;
+  ctx.save(); ctx.translate(jit, 0);
+  person(P2(SEN, lerp(470, 640, ap), 590, lerp(1, -1, turn), ap), t);
+  person(P2(O, lerp(1450, 1280, ap), 590, lerp(-1, 1, turn), ap), t);
+  // the argument bubble: pops, rewinds, pops again
+  let bs = E.spring(P(t, c.bubble, c.bubble + .6));
+  c.rew.forEach(r => { const q = P(t, r, r + .42); if (q > 0 && q < 1) bs *= Math.abs(Math.cos(Math.PI * q)); });
+  bs *= 1 - E.i3(P(t, c.turn + .1, c.turn + .5));
+  if (bs > 0) {
+    ctx.save(); ctx.translate(960, 360); ctx.scale(bs, bs);
+    ctx.shadowColor = "rgba(30,10,30,.3)"; ctx.shadowBlur = 24; ctx.shadowOffsetY = 8;
+    rrect(ctx, -120, -62, 240, 124, 56); ctx.fillStyle = "#FFF8F0"; ctx.fill(); ctx.shadowColor = "transparent";
+    const ti = t < c.topics ? -1 : Math.min(2, Math.floor((t - c.topics) / .38));
+    if (ti < 0) { const r = rng(3); ctx.strokeStyle = C.coralDeep; ctx.lineWidth = 4; ctx.beginPath(); ctx.moveTo(-70, 0); for (let i = 0; i < 14; i++) ctx.lineTo(-70 + i * 10, (r() - .5) * 50 * (1 + .2 * Math.sin(t * 30))); ctx.stroke(); }
+    else topicIcon(ICONS[ti], 0, 0, 1.3 * E.spring(P(t, c.topics + ti * .38, c.topics + ti * .38 + .3)), C.plum);
+    ctx.restore();
+  }
+  ctx.restore();
+  // VHS rewind glints
+  if (rw > 0) {
+    ctx.save(); ctx.globalAlpha = rw * .5; ctx.fillStyle = "#FFFFFF";
+    for (let i = 0; i < 7; i++) { const y = ((i * 173 - t * 2600) % H + H) % H; ctx.fillRect(0, y, W, 2 + (i % 3) * 3); }
+    ctx.globalAlpha = rw; ctx.fillStyle = C.cream;
+    for (const dx of [0, 34]) { ctx.beginPath(); ctx.moveTo(160 + dx, 150); ctx.lineTo(194 + dx, 128); ctx.lineTo(194 + dx, 172); ctx.fill(); }
+    ctx.restore();
+  }
+}
+
+/* scene 1 · the loop */
+function s1People(t) {
+  const c = CU.s1, s = SC.s1;
+  const back = E.io3(P(t, s.start - .1, s.start + .55));
+  const ch1 = E.io3(P(t, c.chase, c.chase + .5)), ch2 = E.io3(P(t, c.away, c.away + .5));
+  const lx = 640 + 110 * ch1 + 90 * ch2, rx = 1280 + 120 * ch1 + 110 * ch2;
+  const lean = .07 * P(t, c.blame - .1, c.blame + .3) * (1 - .5 * P(t, c.ring, c.ring + 1));
+  const sink = 560 * E.io3(P(t, CU.s2.flood[0], CU.s2.flood[1]));
+  return [P2(SEN, lx, 590 + sink, lerp(-1, 1, back), 1, lean), P2(O, rx, 590 + sink, 1, 1, -.02 * P(t, c.quiet, c.quiet + .4))];
+}
+function sDongu(t) {
+  const c = CU.s1, s = SC.s1, fade = 1 - E.io2(P(t, CU.s2.flood[0], CU.s2.flood[0] + .5));
+  const [L, R] = s1People(t);
+  // storm flashes
+  const fl = Math.max(pulse(t, c.blame + .05, .18), pulse(t, c.blame + .5, .14), pulse(t, c.chase + .1, .16));
+  if (fl > 0) { ctx.fillStyle = rgba("#FFB3A8", .12 * fl); ctx.fillRect(0, 0, W, H); }
+  person(L, t);
+  // silence wall behind the one who withdraws
+  const wq = E.o3(P(t, c.quiet, c.quiet + .55)), wx = R.x - 175;
+  if (wq > 0) {
+    ctx.save(); ctx.globalAlpha = wq;
+    const g = ctx.createLinearGradient(wx - 40, 0, wx + 40, 0); g.addColorStop(0, "rgba(200,210,230,0)"); g.addColorStop(.5, "rgba(200,210,230,.24)"); g.addColorStop(1, "rgba(200,210,230,0)");
+    ctx.fillStyle = g; ctx.fillRect(wx - 40, lerp(H, 220, wq), 80, H);
+    ctx.strokeStyle = "rgba(230,236,250,.35)"; ctx.lineWidth = 1.2;
+    for (let i = 0; i < 9; i++) { const yy = 260 + i * 90 + (t * 20) % 90; ctx.beginPath(); ctx.moveTo(wx - 24, yy); ctx.lineTo(wx + 24, yy + 30); ctx.stroke(); }
+    ctx.restore();
+  }
+  person(R, t);
+  // blame waves hit the wall and break
+  const bq = P(t, c.blame - .05, c.blame + .3) * (1 - P(t, c.ring + .5, c.ring + 1.2));
+  if (bq > 0) {
+    const m = mouthOf(L), target = [wq > .2 ? wx : R.x - 60, m[1] - 20];
+    jagged(m, target, t, C.red, 24, .9 * bq, 7);
+    if (wq > .2) { const r = rng(Math.floor(t * 12)); ctx.fillStyle = rgba("#FF8C80", .8 * bq); for (let i = 0; i < 7; i++) ctx.fillRect(wx - 10 + (r() - .5) * 60, target[1] + (r() - .5) * 80, 4, 4); }
+  }
+  // labels
+  const la = E.o3(P(t, c.blame, c.blame + .4)), lb = E.o3(P(t, c.quiet, c.quiet + .4));
+  ctx.globalAlpha = la * fade; ctx.fillStyle = C.coral; tracked("SUÇLAMA", L.x - 20, 250, F.sans(20, 800), 6, "center");
+  ctx.globalAlpha = lb * fade; ctx.fillStyle = C.teal; tracked("SUSKUNLUK", R.x + 40, 250, F.sans(20, 800), 6, "center"); ctx.globalAlpha = 1;
+  // the cycle drawn around them
+  const rq = E.io3(P(t, c.ring, c.ring + .9)) * fade;
+  if (rq > 0) {
+    const cx = (L.x + R.x) / 2 + 60, cy = 560, rx = 600, ry = 330, spin = t * .9;
+    ctx.save(); ctx.setLineDash([14, 14]); ctx.lineDashOffset = -t * 60; ctx.strokeStyle = rgba("#FFC2B8", .55 * rq); ctx.lineWidth = 2.4;
+    ctx.beginPath(); ctx.ellipse(cx, cy, rx, ry, 0, -Math.PI / 2, -Math.PI / 2 + TAU * rq); ctx.stroke(); ctx.setLineDash([]);
+    for (let k = 0; k < 4; k++) {
+      const a = spin + k * TAU / 4, x = cx + rx * Math.cos(a), y = cy + ry * Math.sin(a), tx = -rx * Math.sin(a), ty = ry * Math.cos(a), an = Math.atan2(ty, tx);
+      ctx.save(); ctx.translate(x, y); ctx.rotate(an); ctx.fillStyle = rgba("#FFC2B8", .85 * rq); ctx.beginPath(); ctx.moveTo(14, 0); ctx.lineTo(-10, -10); ctx.lineTo(-10, 10); ctx.fill(); ctx.restore();
+    }
+    ctx.restore();
+  }
+}
+
+/* scene 2 · beneath the surface */
+const ICE_TIP = [[868, 560], [900, 470], [944, 418], [986, 440], [1024, 492], [1062, 560]];
+const ICE_BODY = [[1062, 560], [1190, 610], [1330, 820], [1390, 1080], [1300, 1330], [1080, 1460], [820, 1440], [640, 1270], [560, 1010], [630, 760], [760, 610], [868, 560]];
+const BUBBLES = (() => { const r = rng(21); return Array.from({ length: 40 }, () => ({ x: 200 + r() * 1520, r: 2 + r() * 6, v: 40 + r() * 80, ph: r() * TAU, o: r() })); })();
+function sDerin(t, fadeOut = 1) {
+  const c = CU.s2, s = SC.s2;
+  const fq = E.io3(P(t, c.flood[0], c.flood[1]));
+  const camY = 640 * E.io3(P(t, c.pan[0], c.pan[1]));
+  const wl = lerp(H + 40, 560, fq) - camY;
+  ctx.save(); ctx.globalAlpha = fadeOut;
+  // water body
+  const wg = ctx.createLinearGradient(0, wl, 0, H); wg.addColorStop(0, "rgba(40,110,170,.85)"); wg.addColorStop(.4, "rgba(14,48,96,.95)"); wg.addColorStop(1, "rgba(5,16,36,1)");
+  ctx.fillStyle = wg; ctx.fillRect(0, Math.max(-10, wl), W, H - wl + 10);
+  ctx.save(); ctx.translate(0, -camY);
+  if (fq > .6) {
+    const ia = E.o3(P(fq, .6, 1));
+    ctx.globalAlpha = fadeOut * ia;
+    const tg = ctx.createLinearGradient(0, 410, 0, 560); tg.addColorStop(0, "#F3FBFF"); tg.addColorStop(1, "#A9D6EE");
+    ctx.beginPath(); ICE_TIP.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)); ctx.closePath(); ctx.fillStyle = tg; ctx.fill();
+    const bg = ctx.createLinearGradient(0, 560, 0, 1460); bg.addColorStop(0, "rgba(170,220,245,.55)"); bg.addColorStop(1, "rgba(60,120,180,.28)");
+    ctx.beginPath(); ICE_BODY.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)); ctx.closePath(); ctx.fillStyle = bg; ctx.fill();
+    ctx.strokeStyle = "rgba(220,245,255,.22)"; ctx.lineWidth = 1.2;
+    [[[760, 610], [960, 900], [1330, 820]], [[630, 760], [960, 900], [1080, 1460]], [[560, 1010], [960, 900], [1390, 1080]]].forEach(seg => { ctx.beginPath(); seg.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)); ctx.stroke(); });
+    // surface topics bobbing at the waterline
+    const words = [["bulaşıklar", 560], ["geç kalmak", 740], ["telefon", 1200], ["para", 1380]];
+    words.forEach(([w, x], i) => {
+      const q = E.o3(P(t, c.words + i * .12, c.words + i * .12 + .45)); if (q <= 0) return;
+      ctx.globalAlpha = fadeOut * q * (1 - .4 * P(t, c.pan[0], c.pan[1])); ctx.font = F.sans(30, 700); ctx.textAlign = "center"; ctx.fillStyle = C.cream;
+      ctx.fillText(w, x, 540 + Math.sin(t * 2 + i) * 6 - (1 - q) * 20);
+    });
+    ctx.textAlign = "center"; ctx.font = F.disp(44, 400);
+    [["önemli miyim?", 800, 1030], ["güvende miyim?", 1140, 1110]].forEach(([w, x, y], i) => { ctx.globalAlpha = fadeOut * .45 * E.o3(P(t, c.pan[0] + .4 + i * .2, c.pan[1])); ctx.fillStyle = "#D9F0FF"; ctx.fillText(w, x, y); });
+    const aq = E.o3(P(t, c.ask - .1, c.ask + .7));
+    if (aq > 0) {
+      ctx.globalAlpha = fadeOut;
+      addGlow(SPR.blue, 960, 1255, 420, .35 * aq);
+      for (let k = 0; k < 3; k++) { const q = P(t, c.ask + k * .35, c.ask + k * .35 + 1.6); if (q > 0 && q < 1) { ctx.strokeStyle = rgba("#CFEAFF", (1 - q) * .5); ctx.lineWidth = 2; ctx.beginPath(); ctx.ellipse(960, 1240, 120 + 420 * q, 40 + 140 * q, 0, 0, TAU); ctx.stroke(); } }
+      ctx.globalAlpha = fadeOut * aq; ctx.font = F.disp(92, 500); ctx.fillStyle = "#FFFFFF"; setBlur((1 - aq) * 8); ctx.fillText("Beni duyuyor musun?", 960, 1272 + (1 - aq) * 20); setBlur(0);
+    }
+    ctx.textAlign = "left"; ctx.globalAlpha = fadeOut;
+  }
+  ctx.restore();
+  // light shafts and bubbles under water
+  if (wl < H) {
+    ctx.save(); ctx.beginPath(); ctx.rect(0, wl, W, H - wl); ctx.clip(); ctx.globalCompositeOperation = "lighter";
+    for (let i = 0; i < 6; i++) {
+      const x = 300 + i * 270 + Math.sin(t * .5 + i) * 60, gr = ctx.createLinearGradient(0, wl, 0, wl + 900);
+      gr.addColorStop(0, "rgba(160,215,255,.13)"); gr.addColorStop(1, "rgba(160,215,255,0)");
+      ctx.fillStyle = gr; ctx.beginPath(); ctx.moveTo(x - 40, wl); ctx.lineTo(x + 40, wl); ctx.lineTo(x + 180, wl + 900); ctx.lineTo(x - 60, wl + 900); ctx.fill();
+    }
+    ctx.globalCompositeOperation = "source-over";
+    BUBBLES.forEach(b => { const y = H - ((t * b.v + b.o * H) % (H - wl + 60)); if (y < wl) return; ctx.strokeStyle = "rgba(210,240,255,.5)"; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.arc(b.x + Math.sin(t * 2 + b.ph) * 8, y, b.r, 0, TAU); ctx.stroke(); });
+    ctx.restore();
+    ctx.fillStyle = "rgba(220,245,255,.5)"; ctx.fillRect(0, wl - 1, W, 2);
+  }
+  ctx.restore();
+}
+
+/* scene 3 · the turning point */
+const PATHN = 160;
+function ringPoint(u) { const a = Math.PI / 2 + .25 + u * (TAU - .5); return [960 + 300 * Math.cos(a), 350 + 170 * Math.sin(a)]; }
+function pathPoint(u) { const y = lerp(905, 566, Math.pow(u, .8)); return [960 + Math.sin(u * 3.2) * 110 * (1 - u), y]; }
+const STONES = [[.16, "yumuşak başla"], [.4, "mola ver"], [.62, "dinle"], [.82, "onar"]];
+function sDonum(t) {
+  const c = CU.s3, s = SC.s3;
+  const dq = 1 - E.io2(P(t, c.rise[0], c.rise[0] + .9));
+  if (dq > 0) sDerin(t, dq);
+  const hz = E.o3(P(t, c.rise[0] + .3, c.rise[1] + .4));
+  addGlow(SPR.warm, 960, 580, 900 * hz, .26 * hz);
+  ctx.fillStyle = rgba("#FFE2C4", .55 * hz); ctx.fillRect(0, 559, W, 2);
+  const oy = lerp(880, 560, E.io3(P(t, c.rise[0], c.rise[1])));
+  addGlow(SPR.warm, 960, oy, 120, .55 * (1 - P(t, c.ring, c.ring + .5) * .5)); addGlow(SPR.white, 960, oy, 26, .7);
+  const rq = E.io3(P(t, c.ring, c.ring + .6)), br = E.io3(P(t, c.brk + .1, c.path + .7));
+  if (rq > 0) {
+    ctx.beginPath();
+    for (let i = 0; i <= PATHN; i++) {
+      const u = i / PATHN, q = clamp(br * 1.4 - (1 - u) * .4), a = ringPoint(u), b = pathPoint(u);
+      const x = lerp(a[0], b[0], E.io3(q)), y = lerp(a[1], b[1], E.io3(q));
+      if (u > rq) break; i ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+    }
+    ctx.strokeStyle = rgba("#FFE8D4", .9); ctx.lineWidth = 3; ctx.lineCap = "round"; ctx.stroke(); ctx.lineCap = "butt";
+    const road = E.io3(P(t, c.path, c.path + .9));
+    if (road > 0) {
+      ctx.beginPath();
+      for (let i = 0; i <= 60; i++) { const u = i / 60 * road, [x, y] = pathPoint(u), w = lerp(130, 5, u); i ? ctx.lineTo(x - w, y) : ctx.moveTo(x - w, y); }
+      for (let i = 60; i >= 0; i--) { const u = i / 60 * road, [x, y] = pathPoint(u), w = lerp(130, 5, u); ctx.lineTo(x + w, y); }
+      ctx.closePath(); const rg = ctx.createLinearGradient(0, 905, 0, 566); rg.addColorStop(0, "rgba(255,226,196,0)"); rg.addColorStop(.3, "rgba(255,226,196,.26)"); rg.addColorStop(1, "rgba(255,226,196,.03)");
+      ctx.fillStyle = rg; ctx.fill();
+    }
+    const gap = pulse(t, c.brk, .5); if (gap > 0) { addGlow(SPR.white, 960, 520, 60, gap); }
+  }
+  STONES.forEach(([u, lab], k) => {
+    const q = P(t, c.stones + k * .14, c.stones + k * .14 + .5); if (q <= 0) return;
+    const [x, y] = pathPoint(u), sc = lerp(1.25, .55, u), sp = E.spring(q);
+    addGlow(SPR.gold, x, y, 46 * sc * sp, .9);
+    ctx.fillStyle = "#FFF4E6"; ctx.beginPath(); ctx.ellipse(x, y, 20 * sc * sp, 9 * sc * sp, 0, 0, TAU); ctx.fill();
+    ctx.globalAlpha = E.o3(q); ctx.fillStyle = C.cream; const side = k % 2 ? 1 : -1;
+    ctx.font = F.sans(Math.round(22 * sc + 6), 700); ctx.textAlign = side > 0 ? "left" : "right"; ctx.fillText(`${k + 1}  ${lab}`, x + side * (40 * sc + 14), y + 7); ctx.textAlign = "left"; ctx.globalAlpha = 1;
+  });
+}
+
+/* steps 1–4 share one stage */
+const STEP_TITLES = ["Yumuşak başla", "Mola ver", "Dinle ve yansıt", "Küçük onarımlar"];
+const lum = c => (.2126 * c[0] + .7152 * c[1] + .0722 * c[2]);
+const inkTop = sky => mix("#FFF6EC", "#2E1D31", clamp((lum(sky.top) - 115) / 40));
+const inkMid = sky => mix("#FFF6EC", "#2E1D31", clamp((lum(sky.mid) - 135) / 40));
+function stepFrame(t, k, sky) {
+  const s = SC["s" + (k + 4)], a = E.o3(P(t, s.start - .1, s.start + .5));
+  const ink = inkTop(sky);
+  ctx.globalAlpha = a; ctx.fillStyle = ink;
+  tracked(`ADIM ${k + 1} / 4`, 960, 132, F.sans(18, 800), 6, "center");
+  ctx.font = F.disp(80, 500); ctx.textAlign = "center"; ctx.fillText(STEP_TITLES[k], 960, 222 + (1 - a) * 14); ctx.textAlign = "left";
+  for (let i = 0; i < 4; i++) { ctx.fillStyle = i <= k ? C.coralDeep : rgba("#FFFFFF", .45); ctx.beginPath(); ctx.arc(960 - 45 + i * 30, 260, i === k ? 6 : 4.5, 0, TAU); ctx.fill(); }
+  ctx.globalAlpha = 1;
+}
+function stepPeople(t, k, dl = 0, dr = 0, leanL = 0, leanR = 0) {
+  const s = SC["s" + (k + 4)], a = k === 0 ? E.o3(P(t, s.start - .2, s.start + .6)) : 1;
+  return [P2(SEN, 600 - dl, 610, 1, a, leanL), P2(O, 1320 + dr, 610, -1, a, leanR)];
+}
+function sAdim1(t, sky) {
+  const c = CU.s4;
+  stepFrame(t, 0, sky);
+  const strike = E.io3(P(t, c.strike, c.strike + .45)), ben = P(t, c.ben - .05, c.ben + .5);
+  const [L, R] = stepPeople(t, 0, 0, 0, .05 * P(t, c.harsh, c.harsh + .3) * (1 - ben), -.04 * P(t, c.harsh, c.harsh + .3) * (1 - ben) + .03 * ben);
+  person(L, t); person(R, t);
+  const m = mouthOf(L), e = [R.x - 150, m[1] - 10];
+  const hq = P(t, c.harsh - .1, c.harsh + .2) * (1 - P(t, c.ben - .1, c.ben + .3));
+  if (hq > 0) jagged(m, e, t, C.red, 20, .85 * hq, 3);
+  if (ben > 0) smooth(m, e, t, "#FFF2E6", 14 * E.o3(ben), .85 * E.o3(ben));
+  const hb = E.spring(P(t, c.harsh - .1, c.harsh + .45)) * (1 - E.i3(P(t, c.ben - .25, c.ben + .1)));
+  if (hb > 0) {
+    bubble(880, 420, "“Sen hep…”", F.hand(58), C.coralDeep, hb, [m[0] + 10, m[1] - 50], E.o2(P(t, c.harsh, c.harsh + .5)));
+    if (strike > 0) { ctx.save(); ctx.translate(880, 420); ctx.scale(hb, hb); ctx.strokeStyle = C.coralDeep; ctx.lineWidth = 5; ctx.lineCap = "round"; ctx.beginPath(); ctx.moveTo(-100, 4); ctx.lineTo(-100 + 210 * strike, -6); ctx.stroke(); ctx.restore(); }
+  }
+  const nb = E.spring(P(t, c.ben - .05, c.ben + .5));
+  bubble(960, 420, "“Ben şöyle hissediyorum…”", F.hand(56), "#2F6F78", nb, [m[0] + 30, m[1] - 50], E.o2(P(t, c.ben, c.ben + 1.1)));
+}
+function bpmAt(t) {
+  const c = CU.s5;
+  const up = E.io2(P(t, c.race - .2, c.stop)), down = E.io2(P(t, c.timer[0] + .2, c.back));
+  return lerp(lerp(76, 106, up), 70, down);
+}
+function sAdim2(t, sky) {
+  const c = CU.s5;
+  stepFrame(t, 1, sky);
+  const apart = E.io3(P(t, c.timer[0], c.timer[0] + .7)) * (1 - E.io3(P(t, c.back, c.back + .8)));
+  const [L, R] = stepPeople(t, 1, 70 * apart, 70 * apart);
+  person(L, t); person(R, t);
+  const bpm = bpmAt(t), hot = clamp((bpm - 82) / 20), calm = E.io2(P(t, c.timer[0] + .2, c.back));
+  const col = mix("#FF6A5C", "#3F8F98", calm);
+  // heart-rate trace between them
+  const x0 = 770, x1 = 1150, y0 = 560, frozen = t >= c.stop && t < c.timer[0];
+  const tt = frozen ? c.stop : t;
+  ctx.save(); ctx.beginPath(); ctx.rect(x0, y0 - 90, x1 - x0, 180); ctx.clip();
+  ctx.beginPath();
+  for (let x = x0; x <= x1; x += 3) {
+    const ph = (x - x1) / 140 + tt * bpm / 60, f = ph - Math.floor(ph);
+    let y = 0; if (f > .7 && f < .74) y = -14; else if (f > .74 && f < .78) y = 62 * (.7 + .5 * hot); else if (f > .78 && f < .82) y = -26; else if (f > .82 && f < .86) y = 8;
+    x === x0 ? ctx.moveTo(x, y0 - y) : ctx.lineTo(x, y0 - y);
+  }
+  ctx.strokeStyle = col; ctx.lineWidth = 3.4; ctx.lineJoin = "round"; ctx.stroke(); ctx.restore();
+  // beating heart and bpm
+  const beat = Math.pow(Math.max(0, Math.sin(tt * bpm / 60 * Math.PI)), 12);
+  ctx.save(); ctx.translate(900, 400); const hs = 2.6 * (1 + .12 * beat); heartPath(0, 0, hs); ctx.fillStyle = col; ctx.fill(); ctx.restore();
+  ctx.fillStyle = inkMid(sky); ctx.font = F.sans(54, 800); ctx.textAlign = "left"; ctx.fillText(String(Math.round(bpm)), 950, 420);
+  ctx.font = F.sans(18, 700); ctx.fillText("NABIZ", 952, 446);
+  if (hot > .7 && calm < .3) { ctx.globalAlpha = (hot - .7) / .3 * (1 - calm); ctx.fillStyle = "#FF6A5C"; tracked("TAŞMA", 1060, 420, F.sans(20, 800), 4); ctx.globalAlpha = 1; }
+  // pause sign at "dur"
+  const pq = E.spring(P(t, c.stop, c.stop + .45)) * (1 - E.i3(P(t, c.timer[0], c.timer[0] + .3)));
+  if (pq > 0) { ctx.save(); ctx.translate(960, 560); ctx.scale(pq, pq); ctx.fillStyle = "#FFF8F0"; ctx.beginPath(); ctx.arc(0, 0, 58, 0, TAU); ctx.fill(); ctx.fillStyle = C.plum; ctx.fillRect(-20, -24, 14, 48); ctx.fillRect(6, -24, 14, 48); ctx.restore(); }
+  // twenty-minute ring
+  const tq = P(t, c.timer[0], c.timer[1] + .4);
+  if (tq > 0) {
+    const ra = E.o3(P(t, c.timer[0], c.timer[0] + .3)) * (1 - E.o3(P(t, c.back + .4, c.back + .9)));
+    ctx.save(); ctx.globalAlpha = ra;
+    ctx.strokeStyle = rgba("#FFFFFF", .35); ctx.lineWidth = 8; ctx.beginPath(); ctx.arc(960, 690, 74, 0, TAU); ctx.stroke();
+    ctx.strokeStyle = "#3F8F98"; ctx.lineCap = "round"; ctx.beginPath(); ctx.arc(960, 690, 74, -Math.PI / 2, -Math.PI / 2 + TAU * E.io2(tq)); ctx.stroke(); ctx.lineCap = "butt";
+    ctx.fillStyle = inkMid(sky); ctx.font = F.sans(34, 800); ctx.textAlign = "center";
+    ctx.fillText(`${String(Math.floor(20 * E.io2(tq))).padStart(2, "0")}:00`, 960, 702); ctx.font = F.sans(15, 700); ctx.fillText("MOLA", 960, 728); ctx.textAlign = "left";
+    ctx.restore();
+  }
+  const m = mouthOf(L);
+  bubble(960, 830, "“Geri döneceğim.”", F.hand(54), "#2F6F78", E.spring(P(t, c.back, c.back + .5)), [m[0] + 20, m[1] + 40], E.o2(P(t, c.back, c.back + .8)));
+}
+function sAdim3(t, sky) {
+  const c = CU.s6;
+  stepFrame(t, 2, sky);
+  const [L, R] = stepPeople(t, 2, 0, 0, .02 * pulse(t, c.ask + .6, .8), -.035 * pulse(t, c.ask + .9, .6));
+  person(L, t); person(R, t);
+  const mR = mouthOf(R), eL = earOf(L), mL = mouthOf(L), eR = earOf(R);
+  const sp = P(t, c.speak, c.speak + .3) * (1 - P(t, c.ask - .1, c.ask + .2));
+  if (sp > 0) smooth(mR, [L.x + 170, mR[1] - 8], t, C.teal, 16, .9 * sp, 4, -1);
+  const li = pulse(t, c.listen, 1.2); if (li > 0) addGlow(SPR.teal, L.x + 170, mR[1] - 8, 60, .3 * li);
+  const rf = P(t, c.ask - .1, c.ask + .3);
+  if (rf > 0) {
+    smooth([mL[0] + 4, mL[1] - 4], [R.x - 165, mL[1] - 12], t, C.coral, 16, .9 * rf * (1 - P(t, SC.s6.end - .3, SC.s6.end)), 4, 1);
+    ctx.globalAlpha = rf; ctx.fillStyle = inkMid(sky); tracked("YANSIT", 960, 740, F.sans(18, 800), 6, "center"); ctx.globalAlpha = 1;
+  }
+  bubble(960, 410, "“Seni doğru mu anladım?”", F.hand(56), "#2F6F78", E.spring(P(t, c.ask, c.ask + .55)), [mL[0] + 20, mL[1] - 60], E.o2(P(t, c.ask, c.ask + 1)));
+}
+function threadCurve(L, R, k, q) {
+  const a = mouthOf(L), b = mouthOf(R), y = a[1] - 70 + k * 40, n = 50;
+  ctx.beginPath();
+  for (let i = 0; i <= n * q; i++) { const u = i / n, x = lerp(a[0] + 20, b[0] - 20, u), yy = y + Math.sin(Math.PI * u) * (36 - k * 6) + Math.sin(u * 12 + k) * 3; i ? ctx.lineTo(x, yy) : ctx.moveTo(x, yy); }
+}
+function sAdim4(t, sky) {
+  const c = CU.s7;
+  stepFrame(t, 3, sky);
+  const close = E.io3(P(t, c.right, c.right + 1.2));
+  const [L, R] = stepPeople(t, 3, -30 * close, -30 * close);
+  person(L, t); person(R, t);
+  const ink = "#3A2340";
+  [[c.smile, "smile"], [c.touch, "touch"], [c.right, "card"]].forEach(([t0, kind], k) => {
+    const q = E.spring(P(t, t0 - .05, t0 + .5)); if (q <= 0) return;
+    const x = 820 + k * 140, y = 400;
+    addGlow(SPR.gold, x, y, 110 * q, .5);
+    ctx.save(); ctx.translate(x, y); ctx.scale(q * 1.35, q * 1.35);
+    if (kind !== "card") { ctx.fillStyle = "#FFF8F0"; ctx.beginPath(); ctx.arc(0, 0, 44, 0, TAU); ctx.fill(); } ctx.strokeStyle = ink; ctx.fillStyle = ink; ctx.lineWidth = 4; ctx.lineCap = "round";
+    if (kind === "smile") { ctx.beginPath(); ctx.arc(0, 0, 30, 0, TAU); ctx.stroke(); ctx.beginPath(); ctx.arc(0, 4, 16, .2 * Math.PI, .8 * Math.PI); ctx.stroke(); ctx.beginPath(); ctx.arc(-10, -8, 3, 0, TAU); ctx.arc(10, -8, 3, 0, TAU); ctx.fill(); }
+    else if (kind === "touch") { rrect(ctx, -26, -6, 22, 40, 11); ctx.stroke(); rrect(ctx, 4, -34, 22, 40, 11); ctx.stroke(); addGlow(SPR.white, 0, 0, 22, .8 * pulse(t, t0 + .2, .6)); }
+    else { ctx.save(); ctx.rotate(-.08); rrect(ctx, -54, -26, 108, 52, 8); ctx.fillStyle = "#FFF8F0"; ctx.fill(); ctx.fillStyle = "#2F6F78"; ctx.font = F.hand(34); ctx.textAlign = "center"; ctx.fillText("haklısın", 0, 10); ctx.restore(); }
+    ctx.restore();
+    const th = E.io2(P(t, t0 + .1, t0 + .8));
+    if (th > 0) { threadCurve(L, R, k, th); ctx.strokeStyle = "#FFE3B0"; ctx.lineWidth = 3.6; ctx.shadowColor = "#FFB46A"; ctx.shadowBlur = 16; ctx.stroke(); ctx.shadowBlur = 0; ctx.shadowColor = "transparent"; }
+  });
+}
+
+/* closing */
+function sKapanis(t, sky) {
+  const c = CU.s8, s = SC.s8;
+  const near = E.io3(P(t, s.start - .2, c.heart + .8));
+  const L = P2(SEN, lerp(600, 690, near), 610, 1, 1, .015 * near), R = P2(O, lerp(1320, 1230, near), 610, -1, 1, .015 * near);
+  const hq = E.io2(P(t, c.heart, c.heart + 1.6));
+  person(L, t); person(R, t);
+  if (hq > 0) {
+    const hx = 960, hy = 520, hs = 7.5;
+    addGlow(SPR.warm, hx, hy, 260 * hq, .38 * hq);
+    ctx.save(); ctx.lineWidth = 5; ctx.lineCap = "round"; ctx.strokeStyle = "#FFE7C4"; ctx.shadowColor = "#FF9E7A"; ctx.shadowBlur = 18;
+    const half = (from) => { ctx.beginPath(); const n = 60; for (let i = 0; i <= n * hq; i++) { const u = i / n, th = from ? lerp(0, Math.PI, u) : lerp(TAU, Math.PI, u); const x = 16 * Math.pow(Math.sin(th), 3), y = -(13 * Math.cos(th) - 5 * Math.cos(2 * th) - 2 * Math.cos(3 * th) - Math.cos(4 * th)); i ? ctx.lineTo(hx + x * hs, hy + y * hs) : ctx.moveTo(hx + x * hs, hy + y * hs); } ctx.stroke(); };
+    half(true); half(false); ctx.restore();
+  }
+  const ink = inkTop(sky);
+  const words = s.vo.words, l1 = words.filter(w => w.s < c.line2), l2 = words.filter(w => w.s >= c.line2);
+  const line = (ws, y, size) => {
+    const f = F.disp(size, 500), sp = tw(f, " "), wd = ws.map(w => tw(f, w.w)), tot = wd.reduce((a, b) => a + b, 0) + sp * (ws.length - 1);
+    let x = 960 - tot / 2;
+    ws.forEach((w, i) => { const p = E.o3(P(t, w.s - .08, w.s + .45)); if (p > 0) { ctx.font = f; ctx.globalAlpha = p; setBlur((1 - p) * 7); ctx.fillStyle = ink; ctx.fillText(w.w, x, y + (1 - p) * 14); } x += wd[i] + sp; });
+    setBlur(0); ctx.globalAlpha = 1;
+  };
+  const fade = 1 - E.io2(P(t, c.card - .3, c.card + .3));
+  ctx.save(); ctx.globalAlpha = fade; line(l1, 175, 64); line(l2, 255, 64); ctx.restore();
+}
+function endCard(t) {
+  const c = CU.s8, q = E.io2(P(t, c.card, c.card + 1.1)); if (q <= 0) return;
+  ctx.fillStyle = rgba("#FBF2E7", q * .94); ctx.fillRect(0, 0, W, H);
+  const a = E.o3(P(t, c.card + .4, c.card + 1.2));
+  ctx.globalAlpha = a; ctx.textAlign = "center";
+  ctx.font = F.disp(140, 500); ctx.fillStyle = C.plum; ctx.fillText("Seni duyuyorum.", 960, 470 + (1 - a) * 20);
+  ctx.font = F.hand(64); ctx.fillStyle = C.coralDeep; ctx.fillText("— ve buradayım.", 1120, 560);
+  const b = E.o3(P(t, c.card + .6, c.card + 1.2));
+  ctx.globalAlpha = b; ctx.font = F.sans(24, 600); ctx.fillStyle = C.plum;
+  ctx.fillText("Şiddet ya da korku varsa bu bir iletişim sorunu değildir.", 960, 780);
+  ctx.font = F.sans(24, 800); ctx.fillText("Destek için ALO 183  ·  Acil durumda 112", 960, 820);
+  ctx.font = F.sans(17, 500); ctx.fillStyle = rgba(C.plum, .65); ctx.fillText("Bu video genel bilgilendirme amaçlıdır; terapinin yerini tutmaz.", 960, 880);
+  ctx.textAlign = "left"; ctx.globalAlpha = 1;
+  heartPath(960, 660, 2.2); ctx.fillStyle = rgba(C.coralDeep, a); ctx.fill();
+}
+
+/* ---------- captions and chrome ---------- */
+let CAPS = null;
+function buildCaptions() {
+  const font = F.sans(37, 600), sp = tw(font, " ");
+  CAPS = TL.scenes.map(s => {
+    const ws = s.vo.words.map(w => ({ ...w, wd: tw(font, w.w) }));
+    const total = ws.reduce((a, w) => a + w.wd, 0) + sp * (ws.length - 1), lines = [];
+    if (total > 1460) { let acc = 0, cut = 0; for (let i = 0; i < ws.length; i++) { acc += ws[i].wd + sp; if (acc > total / 2) { cut = i + 1; break; } } lines.push(ws.slice(0, cut), ws.slice(cut)); } else lines.push(ws);
+    lines.forEach((ln, li) => { const lw = ln.reduce((a, w) => a + w.wd, 0) + sp * (ln.length - 1); let x = 960 - lw / 2; const y = lines.length === 2 ? (li ? 1010 : 962) : 1000; ln.forEach(w => { w.x = x; w.y = y; x += w.wd + sp; }); });
+    return { s, words: lines.flat(), font };
+  });
+}
+function captions(t, sky) {
+  const dark = 0;
+  CAPS.forEach((cp, i) => {
+    if (cp.s.id === "s8") return;
+    const nx = TL.scenes[i + 1], a0 = cp.s.vo.start - .2, a1 = nx ? Math.min(cp.s.end + .05, nx.vo.start - .15) : cp.s.end;
+    const a = E.o3(P(t, a0, a0 + .3)) * (1 - E.o3(P(t, a1 - .25, a1))); if (a <= 0) return;
+    ctx.font = cp.font; ctx.textAlign = "left";
+    ctx.save(); ctx.shadowColor = dark > .5 ? "rgba(255,240,230,.7)" : "rgba(10,0,10,.55)"; ctx.shadowBlur = 18;
+    cp.words.forEach(w => {
+      const on = P(t, w.s - .06, w.s + .08), act = on * (1 - P(t, w.e + .03, w.e + .2));
+      const base = mix("#FFF6EC", "#2E1D31", dark);
+      ctx.fillStyle = act > .01 ? mix(dark > .5 ? "#2E1D31" : "#FFF6EC", dark > .5 ? "#C4523F" : "#FFC9A8", act, a) : base.replace(/,1\)$/, `,${a * (on > 0 ? .96 : .38)})`);
+      ctx.fillText(w.w, w.x, w.y);
+    });
+    ctx.restore();
+  });
+}
+function sceneIndex(t) { let i = 0; IDS.forEach((id, k) => { if (t >= SC[id].start) i = k; }); return i; }
+function chrome(t, sky) {
+  const a = E.o2(P(t, CU.title[1] - .2, CU.title[1] + .6)) * (1 - E.o2(P(t, CU.s8.card - .2, CU.s8.card + .4))); if (a <= 0) return;
+  const ink = inkTop(sky);
+  ctx.globalAlpha = a * .8; ctx.fillStyle = ink; tracked("SENİ DUYUYORUM", 80, 76, F.sans(15, 800), 5);
+  const idx = sceneIndex(t), st = SC[IDS[idx]].start, q = idx ? E.o3(P(t, st, st + .5)) : 1;
+  ctx.save(); ctx.beginPath(); ctx.rect(70, 86, 900, 32); ctx.clip();
+  const lab = (i, y, al) => { ctx.globalAlpha = a * al * .9; ctx.fillStyle = ink; tracked(TL.scenes[i].label, 80, y, F.sans(15, 600), 3); };
+  if (q < 1) lab(idx - 1, 108 - q * 30, 1 - q);
+  lab(idx, 108 + (1 - q) * 30, q);
+  ctx.restore();
+  const y = 1046, x0 = 80, x1 = W - 80;
+  ctx.globalAlpha = a * .25; ctx.fillStyle = ink; ctx.fillRect(x0, y, x1 - x0, 2);
+  ctx.globalAlpha = a * .9; ctx.fillStyle = C.coral; ctx.fillRect(x0, y, (x1 - x0) * clamp(t / DUR), 2);
+  ctx.globalAlpha = 1;
+}
+
+/* ---------- compositor ---------- */
+const GRAIN = (() => { const s = 256, c = makeCanvas(s, s), g = c.getContext("2d"), im = g.createImageData(s, s), r = rng(7); for (let i = 0; i < s * s; i++) { const v = r() * 255 | 0; im.data[i * 4] = im.data[i * 4 + 1] = im.data[i * 4 + 2] = v; im.data[i * 4 + 3] = 255; } g.putImageData(im, 0, 0); return c; })();
+const VIG = (() => { const c = makeCanvas(W, H), g = c.getContext("2d"), gr = g.createRadialGradient(W / 2, H / 2, H * .4, W / 2, H / 2, H * 1.05); gr.addColorStop(0, "rgba(20,0,20,0)"); gr.addColorStop(1, "rgba(20,0,20,.45)"); g.fillStyle = gr; g.fillRect(0, 0, W, H); return c; })();
+function render(t, poster = false) {
+  t = clamp(t, 0, DUR);
+  ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; ctx.globalCompositeOperation = "source-over"; setBlur(0);
+  const sky = skyAt(t);
+  drawSky(t, sky);
+  if (t < SC.s1.start) { sTitle(t); sTanidik(t); }
+  else if (t < CU.s2.flood[0]) sDongu(t);
+  else if (t < SC.s3.start) { if (t < CU.s2.flood[1]) sDongu(t); sDerin(t); }
+  else if (t < SC.s4.start) sDonum(t);
+  else if (t < SC.s5.start) sAdim1(t, sky);
+  else if (t < SC.s6.start) sAdim2(t, sky);
+  else if (t < SC.s7.start) sAdim3(t, sky);
+  else if (t < SC.s8.start) sAdim4(t, sky);
+  else sKapanis(t, sky);
+  ctx.globalAlpha = 1 - sky.light * .6; ctx.drawImage(VIG, 0, 0); ctx.globalAlpha = 1;
+  if (!poster) { captions(t, sky); chrome(t, sky); }
+  endCard(t);
+  ctx.save(); ctx.globalAlpha = .055; ctx.globalCompositeOperation = "overlay";
+  const fr = Math.floor(t * 24), gx = (fr * 97) % 256, gy = (fr * 61) % 256;
+  ctx.translate(-gx, -gy); ctx.fillStyle = ctx.createPattern(GRAIN, "repeat"); ctx.fillRect(0, 0, W + 256, H + 256); ctx.restore();
+  const fi = 1 - E.o2(P(t, 0, .8)), fo = E.io2(P(t, CU.s8.fade, DUR)), f = Math.max(fi, fo);
+  if (f > 0) { ctx.fillStyle = `rgba(18,10,22,${f})`; ctx.fillRect(0, 0, W, H); }
+}
+
+/* ---------- boot ---------- */
+const FONT_SPECS = ['italic 500 100px Newsreader', 'italic 400 100px Newsreader', '600 40px Figtree', '700 40px Figtree', '800 40px Figtree', '700 60px Caveat'];
+const ready = (async () => {
+  try { await Promise.race([Promise.all(FONT_SPECS.map(f => document.fonts.load(f, "Seni duyuyorum İŞĞÜÖÇ ığüşöç “”…"))), new Promise(r => setTimeout(r, 3500))]); } catch (e) { /* system faces */ }
+  MC.clear(); buildCaptions();
+})();
+if (CAPTURE) { window.PP = { ready, duration: DUR, fps: TL.fps, render }; return; }
+
+/* ---------- player ---------- */
+const $ = id => document.getElementById(id);
+const stage = $("stage"), seek = $("seek"), bigPlay = $("bigPlay");
+const POSTER = CU.s7.right + .9;
+let playing = false, offset = 0, started = false, muted = false;
+let actx = null, gain = null, buffer = null, src = null, t0 = 0, perf0 = 0, decoding = null;
+const CHAP = [
+  ["Tanıdık an", "Sıcak, samimi", "#E9A08A", "Gün batımı; iki silüet, aynı kavganın geri sarılması", "Yumuşak piyano, saat tıkırtısı, geri sarma sesi"],
+  ["Döngü", "Gergin", "#7A2035", "Fırtına; suçlama dalgaları sessizlik duvarına çarpar, döngü halkası", "Kalp atışı hızlanır, alçak uğultu, uyumsuz yaylılar"],
+  ["Sorunun altı", "Yalnız, soğuk", "#163A63", "Su yükselir; buzdağının altında “Beni duyuyor musun?”", "Su altı boğukluğu, tek tük yüksek piyano, sonar"],
+  ["Dönüm", "Umut", "#5B4A8E", "Şafak öncesi; döngü halkası kırılıp yola dönüşür", "Kısa sessizlik, sıcak majör akor, nefes"],
+  ["Yumuşak başla", "Yumuşama", "#9C86B8", "“Sen hep…” silinir, “Ben şöyle hissediyorum…” yazılır", "Piyano geri döner, sivri dalga yumuşar"],
+  ["Mola", "Sakinleşme", "#B79AC0", "Nabız 106'ya çıkar, mola halkası dolarken 70'e iner", "Kalp atışı yavaşlar, nefes alan pad"],
+  ["Dinle", "Yakınlaşma", "#D8B0BE", "Ses dalgası dinlenir ve yansıtılarak geri döner", "Akustik gitar tınısı eklenir"],
+  ["Onarım", "Sıcaklık", "#F0C0A8", "Gülümseme, dokunuş, “haklısın”: altın iplikler", "Çanlar ve bas; düzenleme dolar"],
+  ["Kapanış", "Kavuşma", "#E9877A", "Gün doğumu; iki yüz arasında ışıktan bir kalp", "Tam düzenleme, çözülme akoru, piyano ile kapanış"],
+];
+const mmss = x => `${Math.floor(x / 60)}:${(x % 60).toFixed(1).padStart(4, "0")}`;
+$("durLabel").textContent = `${Math.round(DUR)} sn`;
+$("bigDur").textContent = mmss(DUR).replace(/\.\d$/, "");
+const chapEls = TL.scenes.map((s, i) => {
+  const b = document.createElement("button"); b.type = "button"; b.className = "chap";
+  b.innerHTML = `<span class="bar" style="background:${CHAP[i][2]}"></span><span class="n">${mmss(s.start)} · ${CHAP[i][1]}</span><span class="t">${CHAP[i][0]}</span>`;
+  b.addEventListener("click", () => seekTo(s.start + .001, true)); $("chapters").appendChild(b); return b;
+});
+TL.scenes.forEach((s, i) => {
+  const tr = document.createElement("tr");
+  tr.innerHTML = `<td>${mmss(s.start)}</td><td><span class="sw" style="background:${CHAP[i][2]}"></span>${CHAP[i][0]} · <em>${CHAP[i][1]}</em></td><td>${CHAP[i][3]}</td><td>${CHAP[i][4]}</td>`;
+  $("emoRows").appendChild(tr);
+});
+const lineEls = TL.scenes.map(s => {
+  const li = document.createElement("li"), b = document.createElement("button"); b.type = "button"; b.className = "line";
+  b.innerHTML = `<time>${mmss(s.vo.start)}</time><span>${s.vo.text}</span>`;
+  b.addEventListener("click", () => seekTo(Math.max(0, s.vo.start - .3), true)); li.appendChild(b); $("transcript").appendChild(li); return b;
+});
+TL.scenes.slice(1).forEach(s => { const i = document.createElement("i"); i.style.left = `${s.start / DUR * 100}%`; $("marks").appendChild(i); });
+function b64ToBuf(b64) { const bin = atob(b64), u = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i); return u.buffer; }
+function ensureAudio() {
+  if (actx || !AUDIO_B64) return decoding || Promise.resolve();
+  const AC = window.AudioContext || window.webkitAudioContext; if (!AC) return Promise.resolve();
+  try { actx = new AC(); } catch (e) { actx = null; return Promise.resolve(); }
+  gain = actx.createGain(); gain.gain.value = muted ? 0 : 1; gain.connect(actx.destination);
+  decoding = new Promise(res => { actx.decodeAudioData(b64ToBuf(AUDIO_B64), b => { buffer = b; res(); }, () => res()); });
+  return decoding;
+}
+const clock = () => !playing ? offset : (src ? actx.currentTime - t0 + offset : (performance.now() - perf0) / 1000 + offset);
+function startSource() { if (actx && buffer) { src = actx.createBufferSource(); src.buffer = buffer; src.connect(gain); t0 = actx.currentTime; src.start(0, Math.min(offset, buffer.duration - .01)); } else { src = null; perf0 = performance.now(); } }
+function stopSource() { if (src) { try { src.stop(); } catch (e) { } src.disconnect(); src = null; } }
+async function play() {
+  if (playing) return; if (offset >= DUR - .02) offset = 0;
+  await ensureAudio(); if (actx && actx.state === "suspended") { try { await actx.resume(); } catch (e) { } }
+  started = true; playing = true; startSource(); bigPlay.hidden = true; syncUI(true); requestAnimationFrame(loop);
+}
+function pause() { if (!playing) return; offset = clock(); stopSource(); playing = false; syncUI(true); }
+function seekTo(x, keepPlaying) {
+  const was = playing; if (playing) { stopSource(); playing = false; }
+  offset = clamp(x, 0, DUR); started = true; bigPlay.hidden = true;
+  if (was && keepPlaying) { playing = true; startSource(); requestAnimationFrame(loop); }
+  render(offset); syncUI(true);
+}
+let lastUI = 0, curScene = -1;
+function syncUI(force) {
+  const t = clock(), now = performance.now(); if (!force && now - lastUI < 90) return; lastUI = now;
+  seek.value = String(Math.round(t / DUR * 1000)); seek.style.setProperty("--p", `${t / DUR * 100}%`);
+  $("timeLabel").textContent = `${mmss(t)} / ${mmss(DUR)}`;
+  $("playIcon").setAttribute("d", playing ? "M3 2h3.5v12H3zM9.5 2H13v12H9.5z" : "M4 2L14 8L4 14Z");
+  $("playBtn").setAttribute("aria-label", playing ? "Duraklat" : "Oynat");
+  const si = sceneIndex(t);
+  if (si !== curScene || force) { curScene = si; chapEls.forEach((b, i) => b.setAttribute("aria-current", String(i === si && started))); lineEls.forEach((b, i) => b.classList.toggle("on", i === si && started)); }
+}
+function loop() {
+  if (!playing) return; const t = clock();
+  if (t >= DUR) { offset = DUR; stopSource(); playing = false; render(DUR); syncUI(true); $("bigLabel").textContent = "Yeniden izle"; bigPlay.hidden = false; return; }
+  render(t); syncUI(false); requestAnimationFrame(loop);
+}
+bigPlay.addEventListener("click", () => { seekTo(0, false); play(); });
+$("playBtn").addEventListener("click", () => playing ? pause() : (started ? play() : (seekTo(0, false), play())));
+seek.addEventListener("input", () => seekTo(Number(seek.value) / 1000 * DUR, true));
+$("muteBtn").addEventListener("click", () => {
+  muted = !muted; if (gain) gain.gain.value = muted ? 0 : 1;
+  $("muteBtn").setAttribute("aria-pressed", String(muted)); $("muteBtn").setAttribute("aria-label", muted ? "Sesi aç" : "Sesi kapat");
+  $("muteIcon").setAttribute("d", muted ? "M2 6h3l4-3v10L5 10H2z M11 6l4 4M15 6l-4 4" : "M2 6h3l4-3v10L5 10H2z M11 5.5a3.5 3.5 0 0 1 0 5M12.6 3.6a6 6 0 0 1 0 8.8");
+});
+$("muteIcon").style.cssText = "fill:none;stroke:currentColor;stroke-width:1.6;stroke-linejoin:round;stroke-linecap:round";
+$("fsBtn").addEventListener("click", () => { const p = document.fullscreenElement ? document.exitFullscreen() : stage.requestFullscreen && stage.requestFullscreen(); if (p && p.catch) p.catch(() => { }); });
+stage.addEventListener("click", e => { if (e.target !== cv) return; if (playing) pause(); else if (started) play(); else { seekTo(0, false); play(); } });
+document.addEventListener("keydown", e => {
+  if (e.target.closest && e.target.closest("button, input, textarea, select")) return;
+  if (e.code === "Space" || e.key === "k") { e.preventDefault(); playing ? pause() : play(); }
+  else if (e.key === "ArrowRight") seekTo(clock() + 2, true);
+  else if (e.key === "ArrowLeft") seekTo(clock() - 2, true);
+});
+ready.then(() => { render(POSTER, true); syncUI(true); });
+})();
+</script>

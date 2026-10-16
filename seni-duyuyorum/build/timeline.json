@@ -1,0 +1,766 @@
+{
+ "duration": 50.536,
+ "fps": 60,
+ "scenes": [
+  {
+   "id": "s0",
+   "key": "tanidik",
+   "label": "TANIDIK BİR AN",
+   "start": 0.0,
+   "end": 6.642,
+   "vo": {
+    "start": 1.25,
+    "dur": 5.092,
+    "text": "Bazen aynı tartışmayı tekrar tekrar yaşarsın. Konu değişir, sonu hep aynıdır.",
+    "words": [
+     {
+      "w": "Bazen",
+      "s": 1.25,
+      "e": 1.622
+     },
+     {
+      "w": "aynı",
+      "s": 1.622,
+      "e": 1.993
+     },
+     {
+      "w": "tartışmayı",
+      "s": 1.993,
+      "e": 2.651
+     },
+     {
+      "w": "tekrar",
+      "s": 2.651,
+      "e": 3.022
+     },
+     {
+      "w": "tekrar",
+      "s": 3.022,
+      "e": 3.394
+     },
+     {
+      "w": "yaşarsın.",
+      "s": 3.394,
+      "e": 3.909
+     },
+     {
+      "w": "Konu",
+      "s": 4.249,
+      "e": 4.53
+     },
+     {
+      "w": "değişir,",
+      "s": 4.53,
+      "e": 4.919
+     },
+     {
+      "w": "sonu",
+      "s": 5.179,
+      "e": 5.567
+     },
+     {
+      "w": "hep",
+      "s": 5.567,
+      "e": 5.806
+     },
+     {
+      "w": "aynıdır.",
+      "s": 5.806,
+      "e": 6.343
+     }
+    ],
+    "parts": [
+     {
+      "text": "Bazen aynı tartışmayı tekrar tekrar yaşarsın.",
+      "s": 1.25,
+      "e": 3.909
+     },
+     {
+      "text": "Konu değişir, sonu hep aynıdır.",
+      "s": 4.249,
+      "e": 6.343
+     }
+    ]
+   }
+  },
+  {
+   "id": "s1",
+   "key": "dongu",
+   "label": "SORUN · DÖNGÜ",
+   "start": 6.642,
+   "end": 11.85,
+   "vo": {
+    "start": 6.962,
+    "dur": 4.588,
+    "text": "Biri suçlar, diğeri susar. Biri yaklaştıkça, öteki uzaklaşır.",
+    "words": [
+     {
+      "w": "Biri",
+      "s": 6.962,
+      "e": 7.297
+     },
+     {
+      "w": "suçlar,",
+      "s": 7.297,
+      "e": 7.632
+     },
+     {
+      "w": "diğeri",
+      "s": 7.882,
+      "e": 8.388
+     },
+     {
+      "w": "susar.",
+      "s": 8.388,
+      "e": 8.753
+     },
+     {
+      "w": "Biri",
+      "s": 9.093,
+      "e": 9.523
+     },
+     {
+      "w": "yaklaştıkça,",
+      "s": 9.523,
+      "e": 10.283
+     },
+     {
+      "w": "öteki",
+      "s": 10.463,
+      "e": 10.94
+     },
+     {
+      "w": "uzaklaşır.",
+      "s": 10.94,
+      "e": 11.55
+     }
+    ],
+    "parts": [
+     {
+      "text": "Biri suçlar, diğeri susar.",
+      "s": 6.962,
+      "e": 8.753
+     },
+     {
+      "text": "Biri yaklaştıkça, öteki uzaklaşır.",
+      "s": 9.093,
+      "e": 11.55
+     }
+    ]
+   }
+  },
+  {
+   "id": "s2",
+   "key": "derin",
+   "label": "SORUNUN ALTINDA",
+   "start": 11.85,
+   "end": 17.999,
+   "vo": {
+    "start": 12.25,
+    "dur": 5.399,
+    "text": "Oysa mesele bulaşıklar değildir. Altında hep aynı soru vardır: Beni duyuyor musun?",
+    "words": [
+     {
+      "w": "Oysa",
+      "s": 12.25,
+      "e": 12.592
+     },
+     {
+      "w": "mesele",
+      "s": 12.592,
+      "e": 13.066
+     },
+     {
+      "w": "bulaşıklar",
+      "s": 13.066,
+      "e": 13.671
+     },
+     {
+      "w": "değildir.",
+      "s": 13.671,
+      "e": 14.145
+     },
+     {
+      "w": "Altında",
+      "s": 14.485,
+      "e": 14.972
+     },
+     {
+      "w": "hep",
+      "s": 14.972,
+      "e": 15.189
+     },
+     {
+      "w": "aynı",
+      "s": 15.189,
+      "e": 15.541
+     },
+     {
+      "w": "soru",
+      "s": 15.541,
+      "e": 15.893
+     },
+     {
+      "w": "vardır:",
+      "s": 15.893,
+      "e": 16.245
+     },
+     {
+      "w": "Beni",
+      "s": 16.585,
+      "e": 16.899
+     },
+     {
+      "w": "duyuyor",
+      "s": 16.899,
+      "e": 17.335
+     },
+     {
+      "w": "musun?",
+      "s": 17.335,
+      "e": 17.649
+     }
+    ],
+    "parts": [
+     {
+      "text": "Oysa mesele bulaşıklar değildir.",
+      "s": 12.25,
+      "e": 14.145
+     },
+     {
+      "text": "Altında hep aynı soru vardır:",
+      "s": 14.485,
+      "e": 16.245
+     },
+     {
+      "text": "Beni duyuyor musun?",
+      "s": 16.585,
+      "e": 17.649
+     }
+    ]
+   }
+  },
+  {
+   "id": "s3",
+   "key": "donum",
+   "label": "DÖNÜM NOKTASI",
+   "start": 17.999,
+   "end": 22.094,
+   "vo": {
+    "start": 18.419,
+    "dur": 3.325,
+    "text": "Bu döngüyü kırmak için, birkaç küçük adım yeter.",
+    "words": [
+     {
+      "w": "Bu",
+      "s": 18.419,
+      "e": 18.652
+     },
+     {
+      "w": "döngüyü",
+      "s": 18.652,
+      "e": 19.177
+     },
+     {
+      "w": "kırmak",
+      "s": 19.177,
+      "e": 19.556
+     },
+     {
+      "w": "için,",
+      "s": 19.556,
+      "e": 19.935
+     },
+     {
+      "w": "birkaç",
+      "s": 20.275,
+      "e": 20.642
+     },
+     {
+      "w": "küçük",
+      "s": 20.642,
+      "e": 21.01
+     },
+     {
+      "w": "adım",
+      "s": 21.01,
+      "e": 21.377
+     },
+     {
+      "w": "yeter.",
+      "s": 21.377,
+      "e": 21.744
+     }
+    ],
+    "parts": [
+     {
+      "text": "Bu döngüyü kırmak için,",
+      "s": 18.419,
+      "e": 19.935
+     },
+     {
+      "text": "birkaç küçük adım yeter.",
+      "s": 20.275,
+      "e": 21.744
+     }
+    ]
+   }
+  },
+  {
+   "id": "s4",
+   "key": "adim1",
+   "label": "ADIM 1 · YUMUŞAK BAŞLANGIÇ",
+   "start": 22.094,
+   "end": 26.933,
+   "vo": {
+    "start": 22.414,
+    "dur": 4.169,
+    "text": "Önce yumuşak başla. “Sen hep” yerine, “Ben şöyle hissediyorum” de.",
+    "words": [
+     {
+      "w": "Önce",
+      "s": 22.414,
+      "e": 22.812
+     },
+     {
+      "w": "yumuşak",
+      "s": 22.812,
+      "e": 23.363
+     },
+     {
+      "w": "başla.",
+      "s": 23.363,
+      "e": 23.761
+     },
+     {
+      "w": "“Sen",
+      "s": 24.101,
+      "e": 24.315
+     },
+     {
+      "w": "hep”",
+      "s": 24.315,
+      "e": 24.529
+     },
+     {
+      "w": "yerine,",
+      "s": 24.529,
+      "e": 25.011
+     },
+     {
+      "w": "“Ben",
+      "s": 25.181,
+      "e": 25.378
+     },
+     {
+      "w": "şöyle",
+      "s": 25.378,
+      "e": 25.697
+     },
+     {
+      "w": "hissediyorum”",
+      "s": 25.697,
+      "e": 26.385
+     },
+     {
+      "w": "de.",
+      "s": 26.385,
+      "e": 26.582
+     }
+    ],
+    "parts": [
+     {
+      "text": "Önce yumuşak başla.",
+      "s": 22.414,
+      "e": 23.761
+     },
+     {
+      "text": "“Sen hep” yerine, “Ben şöyle hissediyorum” de.",
+      "s": 24.101,
+      "e": 26.582
+     }
+    ]
+   }
+  },
+  {
+   "id": "s5",
+   "key": "adim2",
+   "label": "ADIM 2 · MOLA",
+   "start": 26.933,
+   "end": 32.168,
+   "vo": {
+    "start": 27.253,
+    "dur": 4.616,
+    "text": "Kalbin hızlandığında, dur. Yirmi dakika ara ver; ama geri döneceğini söyle.",
+    "words": [
+     {
+      "w": "Kalbin",
+      "s": 27.253,
+      "e": 27.611
+     },
+     {
+      "w": "hızlandığında,",
+      "s": 27.611,
+      "e": 28.383
+     },
+     {
+      "w": "dur.",
+      "s": 28.473,
+      "e": 28.855
+     },
+     {
+      "w": "Yirmi",
+      "s": 29.195,
+      "e": 29.458
+     },
+     {
+      "w": "dakika",
+      "s": 29.458,
+      "e": 29.821
+     },
+     {
+      "w": "ara",
+      "s": 29.821,
+      "e": 30.083
+     },
+     {
+      "w": "ver;",
+      "s": 30.083,
+      "e": 30.245
+     },
+     {
+      "w": "ama",
+      "s": 30.415,
+      "e": 30.697
+     },
+     {
+      "w": "geri",
+      "s": 30.697,
+      "e": 30.979
+     },
+     {
+      "w": "döneceğini",
+      "s": 30.979,
+      "e": 31.587
+     },
+     {
+      "w": "söyle.",
+      "s": 31.587,
+      "e": 31.869
+     }
+    ],
+    "parts": [
+     {
+      "text": "Kalbin hızlandığında, dur.",
+      "s": 27.253,
+      "e": 28.855
+     },
+     {
+      "text": "Yirmi dakika ara ver; ama geri döneceğini söyle.",
+      "s": 29.195,
+      "e": 31.869
+     }
+    ]
+   }
+  },
+  {
+   "id": "s6",
+   "key": "adim3",
+   "label": "ADIM 3 · DİNLE VE YANSIT",
+   "start": 32.168,
+   "end": 36.978,
+   "vo": {
+    "start": 32.488,
+    "dur": 4.139,
+    "text": "Cevap vermeden önce dinle. “Seni doğru mu anladım?” diye sor.",
+    "words": [
+     {
+      "w": "Cevap",
+      "s": 32.488,
+      "e": 32.87
+     },
+     {
+      "w": "vermeden",
+      "s": 32.87,
+      "e": 33.4
+     },
+     {
+      "w": "önce",
+      "s": 33.4,
+      "e": 33.782
+     },
+     {
+      "w": "dinle.",
+      "s": 33.782,
+      "e": 34.164
+     },
+     {
+      "w": "“Seni",
+      "s": 34.504,
+      "e": 34.882
+     },
+     {
+      "w": "doğru",
+      "s": 34.882,
+      "e": 35.26
+     },
+     {
+      "w": "mu",
+      "s": 35.26,
+      "e": 35.493
+     },
+     {
+      "w": "anladım?”",
+      "s": 35.493,
+      "e": 36.016
+     },
+     {
+      "w": "diye",
+      "s": 36.016,
+      "e": 36.394
+     },
+     {
+      "w": "sor.",
+      "s": 36.394,
+      "e": 36.627
+     }
+    ],
+    "parts": [
+     {
+      "text": "Cevap vermeden önce dinle.",
+      "s": 32.488,
+      "e": 34.164
+     },
+     {
+      "text": "“Seni doğru mu anladım?” diye sor.",
+      "s": 34.504,
+      "e": 36.627
+     }
+    ]
+   }
+  },
+  {
+   "id": "s7",
+   "key": "adim4",
+   "label": "ADIM 4 · ONARIM",
+   "start": 36.978,
+   "end": 41.78,
+   "vo": {
+    "start": 37.298,
+    "dur": 4.133,
+    "text": "Küçük onarımları küçümseme: bir gülümseme, bir dokunuş, bir “haklısın”.",
+    "words": [
+     {
+      "w": "Küçük",
+      "s": 37.298,
+      "e": 37.565
+     },
+     {
+      "w": "onarımları",
+      "s": 37.565,
+      "e": 38.14
+     },
+     {
+      "w": "küçümseme:",
+      "s": 38.14,
+      "e": 38.612
+     },
+     {
+      "w": "bir",
+      "s": 38.952,
+      "e": 39.153
+     },
+     {
+      "w": "gülümseme,",
+      "s": 39.153,
+      "e": 39.732
+     },
+     {
+      "w": "bir",
+      "s": 39.862,
+      "e": 40.056
+     },
+     {
+      "w": "dokunuş,",
+      "s": 40.056,
+      "e": 40.492
+     },
+     {
+      "w": "bir",
+      "s": 40.622,
+      "e": 40.871
+     },
+     {
+      "w": "“haklısın”.",
+      "s": 40.871,
+      "e": 41.431
+     }
+    ],
+    "parts": [
+     {
+      "text": "Küçük onarımları küçümseme:",
+      "s": 37.298,
+      "e": 38.612
+     },
+     {
+      "text": "bir gülümseme, bir dokunuş, bir “haklısın”.",
+      "s": 38.952,
+      "e": 41.431
+     }
+    ]
+   }
+  },
+  {
+   "id": "s8",
+   "key": "kapanis",
+   "label": "KAPANIŞ",
+   "start": 41.78,
+   "end": 50.536,
+   "vo": {
+    "start": 42.14,
+    "dur": 5.795,
+    "text": "Çünkü sevgi, hiç tartışmamak değildir. Tartıştıktan sonra yeniden birbirini bulabilmektir.",
+    "words": [
+     {
+      "w": "Çünkü",
+      "s": 42.14,
+      "e": 42.53
+     },
+     {
+      "w": "sevgi,",
+      "s": 42.53,
+      "e": 42.92
+     },
+     {
+      "w": "hiç",
+      "s": 43.1,
+      "e": 43.353
+     },
+     {
+      "w": "tartışmamak",
+      "s": 43.353,
+      "e": 44.08
+     },
+     {
+      "w": "değildir.",
+      "s": 44.08,
+      "e": 44.649
+     },
+     {
+      "w": "Tartıştıktan",
+      "s": 44.989,
+      "e": 45.635
+     },
+     {
+      "w": "sonra",
+      "s": 45.635,
+      "e": 45.999
+     },
+     {
+      "w": "yeniden",
+      "s": 45.999,
+      "e": 46.505
+     },
+     {
+      "w": "birbirini",
+      "s": 46.505,
+      "e": 47.15
+     },
+     {
+      "w": "bulabilmektir.",
+      "s": 47.15,
+      "e": 47.936
+     }
+    ],
+    "parts": [
+     {
+      "text": "Çünkü sevgi, hiç tartışmamak değildir.",
+      "s": 42.14,
+      "e": 44.649
+     },
+     {
+      "text": "Tartıştıktan sonra yeniden birbirini bulabilmektir.",
+      "s": 44.989,
+      "e": 47.936
+     }
+    ]
+   }
+  }
+ ],
+ "cues": {
+  "title": [
+   0.0,
+   2.05
+  ],
+  "s0": {
+   "chars": 0.9,
+   "bubble": 1.993,
+   "rew": [
+    2.651,
+    3.022
+   ],
+   "topics": 4.249,
+   "turn": 5.179
+  },
+  "s1": {
+   "blame": 7.297,
+   "quiet": 8.388,
+   "chase": 9.523,
+   "away": 10.94,
+   "ring": 9.623
+  },
+  "s2": {
+   "flood": [
+    11.5,
+    12.55
+   ],
+   "words": 13.066,
+   "pan": [
+    13.985,
+    16.485
+   ],
+   "ask": 16.585
+  },
+  "s3": {
+   "rise": [
+    17.799,
+    18.999
+   ],
+   "ring": 18.652,
+   "brk": 19.177,
+   "path": 20.275,
+   "stones": 21.01
+  },
+  "s4": {
+   "soft": 22.812,
+   "harsh": 24.101,
+   "strike": 24.529,
+   "ben": 25.181
+  },
+  "s5": {
+   "race": 27.253,
+   "stop": 28.473,
+   "timer": [
+    29.195,
+    30.415
+   ],
+   "back": 30.697
+  },
+  "s6": {
+   "speak": 32.318,
+   "listen": 33.782,
+   "ask": 34.504
+  },
+  "s7": {
+   "smile": 39.153,
+   "touch": 40.056,
+   "right": 40.871
+  },
+  "s8": {
+   "heart": 42.53,
+   "line2": 44.989,
+   "card": 48.536,
+   "fade": 50.036
+  }
+ }
+}

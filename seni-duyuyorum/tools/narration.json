@@ -1,0 +1,41 @@
+[
+  {
+    "id": "s0",
+    "text": "Bazen aynı tartışmayı tekrar tekrar yaşarsın. | Konu değişir, sonu hep aynıdır."
+  },
+  {
+    "id": "s1",
+    "text": "Biri suçlar, diğeri susar. | Biri yaklaştıkça, öteki uzaklaşır."
+  },
+  {
+    "id": "s2",
+    "text": "Oysa mesele bulaşıklar değildir. | Altında hep aynı soru vardır: | Beni duyuyor musun?"
+  },
+  {
+    "id": "s3",
+    "text": "Bu döngüyü kırmak için, | birkaç küçük adım yeter."
+  },
+  {
+    "id": "s4",
+    "text": "Önce yumuşak başla. | “Sen hep” yerine, “Ben şöyle hissediyorum” de.",
+    "say": "Önce yumuşak başla. | Sen hep yerine, ben şöyle hissediyorum de."
+  },
+  {
+    "id": "s5",
+    "text": "Kalbin hızlandığında, dur. | Yirmi dakika ara ver; ama geri döneceğini söyle."
+  },
+  {
+    "id": "s6",
+    "text": "Cevap vermeden önce dinle. | “Seni doğru mu anladım?” diye sor.",
+    "say": "Cevap vermeden önce dinle. | Seni doğru mu anladım, diye sor."
+  },
+  {
+    "id": "s7",
+    "text": "Küçük onarımları küçümseme: | bir gülümseme, bir dokunuş, bir “haklısın”.",
+    "say": "Küçük onarımları küçümseme. | Bir gülümseme, bir dokunuş, bir haklısın."
+  },
+  {
+    "id": "s8",
+    "text": "Çünkü sevgi, hiç tartışmamak değildir. | Tartıştıktan sonra yeniden birbirini bulabilmektir."
+  }
+]
