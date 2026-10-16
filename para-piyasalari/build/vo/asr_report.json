@@ -1,0 +1,44 @@
+[
+  {
+    "id": "s0",
+    "cer": 0.0,
+    "dur": 2.861,
+    "speed": 1.04,
+    "asr": "Para piyasaları kısa vadeli paranın alınıp satıldığı yer."
+  },
+  {
+    "id": "s1",
+    "cer": 0.0,
+    "dur": 2.619,
+    "speed": 1.08,
+    "asr": "Vade 1 Yıldan Kısa'dır, Gecelikten 12 Aya."
+  },
+  {
+    "id": "s2",
+    "cer": 0.0,
+    "dur": 4.514,
+    "speed": 1.0,
+    "asr": "Nakit fazlası olan banka, ihtiyacı olana borç verir, Merkez Bankası Sistemi yönetir."
+  },
+  {
+    "id": "s3",
+    "cer": 0.036,
+    "dur": 4.167,
+    "speed": 1.08,
+    "asr": "Araçlar, hazine bonusu, repo, bankalar arası depo, finansman bonusu."
+  },
+  {
+    "id": "s4",
+    "cer": 0.0,
+    "dur": 2.761,
+    "speed": 1.08,
+    "asr": "Paranın fiyatı faizdir, çıpası ise, politika faizidir."
+  },
+  {
+    "id": "s5",
+    "cer": 0.0,
+    "dur": 2.249,
+    "speed": 1.0,
+    "asr": "Para piyasaları ekonominin kan dolaşımı"
+  }
+]
